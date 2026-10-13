@@ -1,0 +1,178 @@
+import { Link, NavLink, useLocation, useNavigate } from 'react-router'
+import { Bell, Plus } from 'lucide-react'
+import { useDemo, useMe } from '@/store'
+import { cn, timeAgo } from '@/lib/utils'
+import { Avatar, Logo } from '../ui/identity'
+import { Menu, MenuDivider, MenuItem } from '../ui/Menu'
+import { LinkButton } from '../ui/primitives'
+
+function ModeSwitch({ workshop }: { workshop: boolean }) {
+  return (
+    <div className="flex rounded-xl border-2 border-ink bg-white p-0.5 shadow-brut-xs">
+      <Link to="/home" className={cn('rounded-lg px-2.5 py-1 text-sm font-extrabold transition-colors sm:px-3', !workshop ? 'bg-sun' : 'text-ink/60 hover:text-ink')}>
+        <span className="sm:hidden">🏠</span>
+        <span className="hidden sm:inline">🏠 My Cubby</span>
+      </Link>
+      <Link to="/workshop" className={cn('rounded-lg px-2.5 py-1 text-sm font-extrabold transition-colors sm:px-3', workshop ? 'bg-grape' : 'text-ink/60 hover:text-ink')}>
+        <span className="sm:hidden">🛠️</span>
+        <span className="hidden sm:inline">🛠️ Workshop</span>
+      </Link>
+    </div>
+  )
+}
+
+function Notifications() {
+  const notifications = useDemo((s) => s.notifications)
+  const markAllRead = useDemo((s) => s.markAllRead)
+  const markRead = useDemo((s) => s.markRead)
+  const navigate = useNavigate()
+  const unread = notifications.filter((n) => !n.read).length
+  return (
+    <Menu
+      className="w-[min(360px,calc(100vw-2rem))]"
+      trigger={(open) => (
+        <button className={cn('brut-xs press relative rounded-xl p-2', open ? 'bg-sun' : 'bg-white')} aria-label="Notifications">
+          <Bell size={18} strokeWidth={2.5} />
+          {unread > 0 && (
+            <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full border-2 border-ink bg-cherry text-[10px] font-extrabold">{unread}</span>
+          )}
+        </button>
+      )}
+    >
+      {(close) => (
+        <div>
+          <div className="flex items-center justify-between border-b-2 border-ink bg-sun px-4 py-2.5">
+            <span className="font-display font-extrabold">Notifications</span>
+            {unread > 0 && (
+              <button onClick={markAllRead} className="text-xs font-bold underline">
+                Mark all read
+              </button>
+            )}
+          </div>
+          <div className="max-h-[60vh] overflow-y-auto">
+            {notifications.length === 0 && <div className="p-6 text-center text-sm text-ink/60">All quiet. 🌙</div>}
+            {notifications.slice(0, 12).map((n) => (
+              <button
+                key={n.id}
+                onClick={() => {
+                  markRead(n.id)
+                  close()
+                  if (n.href) navigate(n.href)
+                }}
+                className={cn('flex w-full gap-3 border-b-2 border-ink/10 px-4 py-3 text-left last:border-0 hover:bg-sun/25', !n.read && 'bg-sky/15')}
+              >
+                <span className="text-xl leading-none">{n.emoji}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm leading-snug font-bold">{n.title}</span>
+                  {n.body && <span className="mt-0.5 block text-xs text-ink/65">{n.body}</span>}
+                  <span className="mt-1 block text-[11px] font-bold text-ink/45">{timeAgo(n.at)}</span>
+                </span>
+                {!n.read && <span className="mt-1 size-2.5 shrink-0 rounded-full border-2 border-ink bg-cherry" />}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </Menu>
+  )
+}
+
+function ProfileMenu() {
+  const me = useMe()
+  const plan = useDemo((s) => s.plan)
+  const reset = useDemo((s) => s.resetDemo)
+  const navigate = useNavigate()
+  return (
+    <Menu
+      trigger={() => (
+        <button className="press rounded-full" aria-label="Account menu">
+          <Avatar person={me} size="md" className="shadow-brut-xs" />
+        </button>
+      )}
+    >
+      {(close) => (
+        <div>
+          <div className="flex items-center gap-3 border-b-2 border-ink px-4 py-3">
+            <Avatar person={me} size="md" />
+            <div className="min-w-0">
+              <div className="truncate font-bold">{me.name}</div>
+              <div className="truncate text-xs text-ink/60">{me.email}</div>
+            </div>
+            <span className="ml-auto rounded-full border-2 border-ink bg-sun px-2 text-[11px] font-extrabold uppercase">{plan}</span>
+          </div>
+          <MenuItem emoji="⚙️" onClick={() => (close(), navigate('/account'))}>
+            Account & plan
+          </MenuItem>
+          <MenuItem emoji="💾" onClick={() => (close(), navigate('/data'))}>
+            Data & backups
+          </MenuItem>
+          <MenuItem emoji="📣" onClick={() => (close(), navigate('/'))}>
+            About Cubby (landing page)
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem emoji="🧹" onClick={() => (close(), reset())}>
+            Reset demo
+          </MenuItem>
+        </div>
+      )}
+    </Menu>
+  )
+}
+
+export function Navbar() {
+  const { pathname } = useLocation()
+  const workshop = pathname.startsWith('/workshop')
+  const invites = useDemo((s) => s.invites.length)
+
+  const userLinks = [
+    { to: '/home', label: 'Home' },
+    { to: '/explore', label: 'Explore' },
+    { to: '/spaces', label: 'Spaces', badge: invites || undefined },
+    { to: '/data', label: 'Data & backups' },
+  ]
+  const devLinks = [
+    { to: '/workshop', label: 'My apps', end: true },
+    { to: '/workshop/docs', label: 'Docs & SDK' },
+  ]
+  const links = workshop ? devLinks : userLinks
+
+  const navItems = links.map((l) => (
+    <NavLink
+      key={l.to}
+      to={l.to}
+      end={'end' in l ? l.end : false}
+      className={({ isActive }) =>
+        cn(
+          'relative inline-flex shrink-0 items-center gap-1.5 rounded-lg border-2 px-3 py-1.5 text-sm font-bold whitespace-nowrap transition-colors',
+          isActive ? 'border-ink bg-white shadow-brut-xs' : 'border-transparent text-ink/70 hover:text-ink',
+        )
+      }
+    >
+      {l.label}
+      {'badge' in l && l.badge ? <span className="flex size-5 items-center justify-center rounded-full border-2 border-ink bg-cherry text-[10px] font-extrabold">{l.badge}</span> : null}
+    </NavLink>
+  ))
+
+  return (
+    <header className={cn('sticky top-0 z-40 border-b-[3px] border-ink backdrop-blur', workshop ? 'bg-grape/35' : 'bg-cream/90')}>
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4">
+        <Link to={workshop ? '/workshop' : '/home'} className="shrink-0">
+          <Logo withText={false} size={36} className="sm:hidden" />
+          <Logo className="hidden sm:inline-flex" />
+        </Link>
+        <ModeSwitch workshop={workshop} />
+        <nav className="ml-2 hidden items-center gap-1 lg:flex">{navItems}</nav>
+        <div className="ml-auto flex items-center gap-2.5">
+          {workshop && (
+            <LinkButton to="/workshop/new" size="sm" variant="primary" className="hidden sm:inline-flex">
+              <Plus size={16} strokeWidth={3} /> New app
+            </LinkButton>
+          )}
+          <Notifications />
+          <ProfileMenu />
+        </div>
+      </div>
+      <nav className="scrollbar-none flex gap-1 overflow-x-auto border-t-2 border-ink/15 px-3 py-1.5 lg:hidden">{navItems}</nav>
+    </header>
+  )
+}
