@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils'
 const STEPS: { id: TourStep; label: string; to: string; side: 'user' | 'maker' }[] = [
   { id: 'update', label: 'Review Grocery Goblin’s data update', to: '/home', side: 'user' },
   { id: 'peek', label: 'Peek at the raw data an app keeps', to: '/my/grocery-goblin/data', side: 'user' },
-  { id: 'invite', label: 'Join a shared space you were invited to', to: '/spaces', side: 'user' },
+  { id: 'invite', label: 'Join a shared space from the notification bell', to: '/home', side: 'user' },
   { id: 'install', label: 'Install something new from Explore', to: '/explore', side: 'user' },
   { id: 'restore', label: 'Delete a row, then restore it from a backup', to: '/my/grocery-goblin/data', side: 'user' },
   { id: 'ship', label: 'Ship a release that changes data, then approve it as a user', to: '/workshop/grocery-goblin/migrations', side: 'maker' },

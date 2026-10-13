@@ -443,17 +443,6 @@ function seedActivity(): ActivityEvent[] {
 function seedNotifications(): AppNotification[] {
   return [
     {
-      id: 'ntf_1',
-      at: daysAgo(6),
-      emoji: '🧌',
-      title: 'Grocery Goblin 2.4.0 wants to update your data',
-      body: 'Aisle sorting + a Stores tab. Take a look before it changes anything.',
-      href: '/home',
-      read: false,
-    },
-    { id: 'ntf_2', at: hoursAgo(5), emoji: '🌵', title: 'Priya invited you to “Office Plant Squad”', body: 'in Plant Pal', href: '/spaces', read: false },
-    { id: 'ntf_3', at: daysAgo(1), emoji: '🎂', title: 'Lou invited you to “Lou’s 40th Potluck”', body: 'in Potluck Planner (not installed yet)', href: '/spaces', read: false },
-    {
       id: 'ntf_4',
       at: daysAgo(2),
       emoji: '🛠️',
@@ -463,7 +452,7 @@ function seedNotifications(): AppNotification[] {
       read: false,
     },
     { id: 'ntf_5', at: hoursAgo(3), emoji: '💾', title: 'Daily backup finished', body: 'Everything, 25.3 MB', href: '/data', read: true },
-    { id: 'ntf_6', at: daysAgo(4), emoji: '💛', title: 'Someone tipped $5 on Chore Wheel', body: '“the wheel ended a war in our house”', href: '/workshop/chore-wheel', read: true },
+    { id: 'ntf_6', at: daysAgo(4), emoji: '💛', title: 'Someone tipped $5 on Chore Wheel', body: '“the wheel ended a war in our house”', href: '/workshop/chore-wheel/releases', read: true },
   ]
 }
 

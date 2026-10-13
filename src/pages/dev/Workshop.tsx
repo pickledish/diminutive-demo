@@ -9,7 +9,7 @@ import { compact, money, timeAgo } from '@/lib/utils'
 import { Sparkline } from '@/components/ui/Charts'
 import { CodeBlock } from '@/components/ui/CodeBlock'
 import { AppIcon } from '@/components/ui/identity'
-import { Badge, Callout, Card, CardHeader, LinkButton, PageHeader, Stars, Stat } from '@/components/ui/primitives'
+import { Badge, Card, CardHeader, LinkButton, PageHeader, Stars, Stat } from '@/components/ui/primitives'
 
 export function StatusBadge({ status }: { status: DevApp['status'] }) {
   if (status === 'live') return <Badge tone="mint">● Live in Explore</Badge>
@@ -23,7 +23,7 @@ function DevAppCard({ dev }: { dev: DevApp }) {
   const live = dev.releases.find((r) => r.channel === 'live')
   const newBugs = dev.bugReports.filter((b) => b.status === 'new').length
   return (
-    <Link to={`/workshop/${dev.appId}`} className="brut lift flex flex-col rounded-2xl bg-white">
+    <Link to={`/workshop/${dev.appId}/releases`} className="brut lift flex flex-col rounded-2xl bg-white">
       <div className="flex items-start gap-3 p-4">
         <AppIcon app={app} size="md" />
         <div className="min-w-0 flex-1">
@@ -79,7 +79,6 @@ export function Workshop() {
   const active = live.reduce((n, d) => n + getAnalytics(apps[d.appId], d, 7).totals.active7, 0)
   const rated = live.filter((d) => apps[d.appId].ratingCount)
   const avg = rated.length ? rated.reduce((n, d) => n + apps[d.appId].rating, 0) / rated.length : 0
-  const rollingOut = list.flatMap((d) => d.migrations.filter((m) => m.stats.failed > 0 || m.stats.pending > 0).map((m) => ({ d, m })))
   const feedback = list
     .flatMap((d) => [
       ...apps[d.appId].reviews.slice(0, 2).map((r) => ({ id: r.id, appId: d.appId, at: r.date, text: r.text, who: `${r.authorEmoji} ${r.authorName}`, kind: `${'★'.repeat(r.rating)}` })),
@@ -113,33 +112,9 @@ export function Workshop() {
         <Stat label="Average rating" value={avg ? avg.toFixed(1) : '—'} emoji="⭐" tone="mint" sub={<Stars value={avg} size={11} />} />
       </div>
 
-      {rollingOut.length > 0 && (
-        <div className="mb-8 flex flex-col gap-3">
-          {rollingOut.map(({ d, m }) => (
-            <Callout
-              key={m.id}
-              emoji={m.stats.failed ? '🩹' : '🚚'}
-              tone={m.stats.failed ? 'tangerine' : 'blue'}
-              className="border-[3px] shadow-brut-sm"
-              action={
-                <LinkButton to={`/workshop/${d.appId}/migrations`} size="sm" variant="white">
-                  View rollout
-                </LinkButton>
-              }
-            >
-              <b>
-                {apps[d.appId].name} · {m.filename}
-              </b>{' '}
-              is rolling out: {m.stats.applied.toLocaleString()} applied, {m.stats.pending.toLocaleString()} waiting for users to approve
-              {m.stats.failed ? `, ${m.stats.failed} rolled back safely` : ''}.
-            </Callout>
-          ))}
-        </div>
-      )}
-
-      <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
-        <section>
-          <h2 className="mb-4 text-2xl font-extrabold">Your apps</h2>
+      <div className="grid items-start gap-x-8 gap-y-4 lg:grid-cols-[1fr_340px]">
+        <h2 className="text-2xl font-extrabold">Your apps</h2>
+        <section className="lg:col-start-1">
           <div className="grid gap-5 sm:grid-cols-2">
             {list.map((d) => (
               <DevAppCard key={d.appId} dev={d} />
@@ -156,7 +131,7 @@ export function Workshop() {
             </Link>
           </div>
         </section>
-        <aside className="flex flex-col gap-6">
+        <aside className="flex flex-col gap-6 lg:col-start-2 lg:row-start-2">
           <Card>
             <CardHeader title="Latest feedback" emoji="💬" />
             <div className="divide-y-2 divide-ink/10">

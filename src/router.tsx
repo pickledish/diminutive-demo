@@ -10,7 +10,6 @@ import { Listing } from './pages/user/Listing'
 import { Maker } from './pages/user/Maker'
 import { ManageApp } from './pages/user/manage/ManageApp'
 import { Runner } from './pages/user/Runner'
-import { Spaces } from './pages/user/Spaces'
 import { DataBackups } from './pages/user/DataBackups'
 import { Account } from './pages/user/Account'
 import { Workshop } from './pages/dev/Workshop'
@@ -44,7 +43,6 @@ export const router = createHashRouter([
           { path: '/apps/:appId', element: <Listing /> },
           { path: '/makers/:handle', element: <Maker /> },
           { path: '/my/:appId/:tab?', element: <ManageApp /> },
-          { path: '/spaces', element: <Spaces /> },
           { path: '/data', element: <DataBackups /> },
           { path: '/account', element: <Account /> },
           { path: '/workshop', element: <Workshop /> },

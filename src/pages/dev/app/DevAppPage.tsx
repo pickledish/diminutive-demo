@@ -10,7 +10,6 @@ import { Badge, Button, LinkButton } from '@/components/ui/primitives'
 import { Tabs } from '@/components/ui/Tabs'
 import { DeployModal } from '@/components/dev/DeployModal'
 import { StatusBadge } from '../Workshop'
-import { DevOverviewTab } from './DevOverviewTab'
 import { ReleasesTab } from './ReleasesTab'
 import { MigrationsTab } from './MigrationsTab'
 import { AnalyticsTab } from './AnalyticsTab'
@@ -19,12 +18,13 @@ import { FeedbackTab } from './FeedbackTab'
 import { DevSettingsTab } from './DevSettingsTab'
 
 export function DevAppPage() {
-  const { appId = '', tab = 'overview' } = useParams()
+  const { appId = '', tab } = useParams()
   const app = useDemo((s) => s.apps[appId])
   const dev = useDemo((s) => s.devApps[appId])
   const [deploying, setDeploying] = useState(false)
 
   if (!app || !dev) return <Navigate to="/workshop" replace />
+  if (!tab || tab === 'overview') return <Navigate to={`/workshop/${appId}/releases`} replace />
 
   const live = liveRelease(dev)
   const unreleased = dev.migrations.filter((m) => !m.releaseVersion).length
@@ -38,7 +38,6 @@ export function DevAppPage() {
     ) : undefined
 
   const tabs = [
-    { to: base, label: '🏠 Overview', end: true },
     { to: `${base}/releases`, label: '🚀 Releases' },
     { to: `${base}/migrations`, label: '🧬 Migrations', badge: count(unreleased) },
     { to: `${base}/analytics`, label: '📈 Analytics' },
@@ -78,7 +77,6 @@ export function DevAppPage() {
 
       <Tabs tabs={tabs} className="mb-6" />
 
-      {tab === 'overview' && <DevOverviewTab appId={appId} onDeploy={() => setDeploying(true)} />}
       {tab === 'releases' && <ReleasesTab appId={appId} onDeploy={() => setDeploying(true)} />}
       {tab === 'migrations' && <MigrationsTab appId={appId} onDeploy={() => setDeploying(true)} />}
       {tab === 'analytics' && <AnalyticsTab appId={appId} />}

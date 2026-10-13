@@ -5,7 +5,7 @@ import { useDemo } from '@/store'
 import { bg } from '@/lib/colors'
 import { cn, formatDate, timeAgo } from '@/lib/utils'
 import { AppIcon } from '@/components/ui/identity'
-import { Badge, Button, Callout, EmptyState, LinkButton } from '@/components/ui/primitives'
+import { Badge, Button, EmptyState, LinkButton } from '@/components/ui/primitives'
 import { Tabs } from '@/components/ui/Tabs'
 import { UpdateReviewModal } from '@/components/flows/UpdateReview'
 import { ConfirmModal } from '@/components/flows/ConfirmModal'
@@ -126,21 +126,24 @@ export function ManageApp() {
       </div>
 
       {pending && (
-        <Callout
-          emoji="⬆️"
-          tone="sun"
-          className="mb-6 border-[3px] shadow-brut-sm"
-          action={
-            <Button size="sm" variant="dark" onClick={() => setUpdOpen(true)}>
-              Review update
-            </Button>
-          }
-        >
-          <b>
-            {app.name} {pending.toVersion} is ready.
-          </b>{' '}
-          {pending.dataSummary.length ? 'It changes the shape of your data, so it’s waiting for your OK. You’re still on the old version until then.' : pending.notes}
-        </Callout>
+        <div className="mb-6 flex items-stretch gap-3 rounded-xl border-[3px] border-ink bg-sun p-2.5 shadow-brut-sm">
+          <span className="self-center text-lg leading-none">⬆️</span>
+          <div className="min-w-0 flex-1 self-center text-sm leading-5">
+            <div className="truncate font-bold">
+              {app.name} {pending.toVersion} is ready
+            </div>
+            <div className="truncate">
+              {pending.dataSummary.length ? 'It changes your data, so it’s waiting for your OK.' : pending.notes}
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setUpdOpen(true)}
+            className="brut-sm press inline-flex items-center self-stretch rounded-lg bg-ink px-3.5 text-sm leading-none font-bold whitespace-nowrap text-paper"
+          >
+            Review update
+          </button>
+        </div>
       )}
 
       <Tabs tabs={tabs} className="mb-6" />

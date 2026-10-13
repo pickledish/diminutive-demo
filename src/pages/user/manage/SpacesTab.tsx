@@ -155,7 +155,7 @@ function SpaceCard({ space }: { space: Space }) {
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 border-t-[3px] border-ink bg-paper px-5 py-3">
+      <div className="flex flex-wrap items-center gap-2 border-t-[3px] border-ink px-5 py-3">
         {owner ? (
           <>
             <Button size="sm" variant="white" onClick={() => setRenaming(true)}>

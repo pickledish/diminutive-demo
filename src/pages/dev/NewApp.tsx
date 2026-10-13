@@ -196,7 +196,7 @@ export function NewApp() {
             </div>
           </div>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
-            <Button size="lg" onClick={() => navigate(`/workshop/${createdId}`)}>
+            <Button size="lg" onClick={() => navigate(`/workshop/${createdId}/releases`)}>
               Go to {name}’s dashboard <ArrowRight size={18} strokeWidth={3} />
             </Button>
             <LinkButton to="/workshop/docs" size="lg" variant="white">

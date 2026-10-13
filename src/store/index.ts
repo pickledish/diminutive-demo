@@ -167,12 +167,6 @@ function deliverToMe(s: Draft, appId: string, release: Release) {
       releasedAt: now(),
     }
     if (migs.length) {
-      notify(s, {
-        emoji: app.emoji,
-        title: `${app.name} ${release.version} wants to update your data`,
-        body: summary[0],
-        href: '/home',
-      })
       pushActivity(s, { kind: 'update', appId, text: `${app.name} ${release.version} is waiting for your OK (it changes your data)`, who: 'cubby' })
     }
   } else if (inst.autoUpdate) {
@@ -692,7 +686,7 @@ export const useDemo = create<DemoState>()(
           const dev = s.devApps[appId]
           if (dev) {
             dev.tipsCents += cents
-            notify(s, { emoji: '💛', title: `Someone tipped ${'$' + (cents / 100).toFixed(0)} on ${appName(s, appId)}`, body: 'It was you. Still counts.', href: `/workshop/${appId}` })
+            notify(s, { emoji: '💛', title: `Someone tipped ${'$' + (cents / 100).toFixed(0)} on ${appName(s, appId)}`, body: 'It was you. Still counts.', href: `/workshop/${appId}/releases` })
           }
         }),
 
