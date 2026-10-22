@@ -92,7 +92,7 @@ export function Docs() {
           </Section>
 
           <Section id="spaces" title="👥 Spaces & roles">
-            <p>A space is a separate database inside your app, like “Park House” or “Lake Trip 2026”. Users create them, invite people, and switch between them. Your code just asks for the current one.</p>
+            <p>A space is a separate database inside your app. Every install starts with one personal space, and users can create more — “Park House”, “Lake Trip 2026” — then invite people and switch between them. Your code just asks for the current one.</p>
             <div className="grid gap-3 sm:grid-cols-3">
               {[
                 ['👑', 'owner', 'Owns the data. Can invite, remove, back up, delete. Exactly one per space.'],
@@ -116,7 +116,6 @@ export function Docs() {
   "app": "grocery-goblin",
   "build": "dist",
   "migrations": "migrations",
-  "spaces": { "enabled": true, "maxMembers": 12 },
   "permissions": ["notifications"],
   "network": []            // empty = "sealed": no outside requests at all
 }`}

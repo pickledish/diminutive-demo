@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Link } from 'react-router'
-import { Plus, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import type { Migration } from '@/types'
 import { useDemo } from '@/store'
 import { headSchema } from '@/lib/dev'
@@ -9,7 +9,6 @@ import { StackedBar } from '@/components/ui/Charts'
 import { CodeBlock } from '@/components/ui/CodeBlock'
 import { Badge, Button, Callout, Card, EmptyState } from '@/components/ui/primitives'
 import { SchemaCards } from '@/components/SchemaCards'
-import { NewMigrationModal } from '@/components/dev/NewMigrationModal'
 import { toast } from '@/components/ui/toast'
 
 function SafetyBadges({ m }: { m: Migration }) {
@@ -94,34 +93,28 @@ export function MigrationsTab({ appId, onDeploy }: { appId: string; onDeploy: ()
   const app = useDemo((s) => s.apps[appId])
   const dev = useDemo((s) => s.devApps[appId])
   const del = useDemo((s) => s.deleteMigration)
-  const [creating, setCreating] = useState(false)
   const unreleased = dev.migrations.filter((m) => !m.releaseVersion)
   const released = dev.migrations.filter((m) => m.releaseVersion)
   const schema = useMemo(() => headSchema(app, dev), [app, dev])
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="max-w-2xl">
-          <h2 className="text-2xl font-extrabold">Migrations</h2>
-          <p className="text-ink/70">
-            You can’t touch anyone’s database, so Cubby carries your changes to every install for you. Each one gets your summary, a backup, and automatic undo if anything breaks.{' '}
-            <Link to="/workshop/docs" className="font-bold underline">
-              How it works
-            </Link>
-          </p>
-        </div>
-        <Button variant="grape" onClick={() => setCreating(true)}>
-          <Plus size={16} strokeWidth={3} /> New migration
-        </Button>
+      <div>
+        <h2 className="text-2xl font-extrabold">Migrations</h2>
+        <p className="mt-1 text-ink/70">
+          Migrations are SQL files you commit in your repo, and they ship inside a release. Cubby carries each one to every install with your summary, a backup, and automatic undo if anything breaks.{' '}
+          <Link to="/workshop/docs" className="font-bold underline">
+            How it works
+          </Link>
+        </p>
       </div>
 
       {unreleased.length > 0 && (
         <Card className="overflow-hidden border-dashed bg-grape/15">
           <div className="flex flex-wrap items-center justify-between gap-3 border-b-[3px] border-ink px-5 py-3">
             <div>
-              <div className="font-display text-lg font-extrabold">✍️ Not shipped yet</div>
-              <div className="text-sm text-ink/65">These go out with your next release.</div>
+              <div className="font-display text-lg font-extrabold">📦 Waiting on a release</div>
+              <div className="text-sm text-ink/65">Committed in your repo. They go out with your next release.</div>
             </div>
             <Button size="sm" onClick={onDeploy}>
               🚀 Ship in a release
@@ -167,8 +160,8 @@ export function MigrationsTab({ appId, onDeploy }: { appId: string; onDeploy: ()
               ))}
             </div>
           ) : (
-            <EmptyState emoji="🧬" title="No migrations yet" action={<Button onClick={() => setCreating(true)}>Write your first one</Button>}>
-              Your first migration creates your tables. Think of it as describing what your app remembers.
+            <EmptyState emoji="🧬" title="No migrations yet">
+              Add a <span className="font-mono">migrations/0001_*.sql</span> file and include it in a release. That first file creates the tables your app remembers.
             </EmptyState>
           )}
         </section>
@@ -180,8 +173,6 @@ export function MigrationsTab({ appId, onDeploy }: { appId: string; onDeploy: ()
           </Callout>
         </aside>
       </div>
-
-      <NewMigrationModal appId={appId} open={creating} onClose={() => setCreating(false)} />
     </div>
   )
 }

@@ -73,7 +73,6 @@ interface Actions {
     color: ColorKey
     category: Category
     tagline: string
-    supportsSpaces: boolean
     permissions: PermissionKey[]
   }) => string
   updateListing: (appId: string, patch: Partial<AppListing>) => void
@@ -244,7 +243,7 @@ export const useDemo = create<DemoState>()(
           s.spaces[spaceId] = {
             id: spaceId,
             appId,
-            name: opts?.spaceName || (app.supportsSpaces ? 'Just me' : 'My data'),
+            name: opts?.spaceName || 'Just me',
             emoji: opts?.spaceEmoji || (shared ? '✨' : '🙂'),
             ownerId: s.meId,
             members: [{ personId: s.meId, role: 'owner', joinedAt: now() }],
@@ -746,10 +745,8 @@ export const useDemo = create<DemoState>()(
             updatedAt: now(),
             createdAt: now(),
             sizeKb: 0,
-            permissions: ['storage', ...(input.supportsSpaces ? (['spaces', 'profile'] as const) : []), ...input.permissions.filter((p) => !['storage', 'spaces', 'profile'].includes(p))],
+            permissions: ['storage', 'spaces', 'profile', ...input.permissions.filter((p) => !['storage', 'spaces', 'profile'].includes(p))],
             network: [],
-            supportsSpaces: input.supportsSpaces,
-            maxMembers: input.supportsSpaces ? 10 : undefined,
             mock: 'list',
             changelog: [],
             schema: [],

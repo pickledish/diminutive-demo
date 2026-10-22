@@ -11,7 +11,6 @@ import { UpdateReviewModal } from '@/components/flows/UpdateReview'
 import { ConfirmModal } from '@/components/flows/ConfirmModal'
 import { toast } from '@/components/ui/toast'
 import { celebrate } from '@/lib/fx'
-import { OverviewTab } from './OverviewTab'
 import { DataTab } from './DataTab'
 import { SpacesTab } from './SpacesTab'
 import { BackupsTab } from './BackupsTab'
@@ -69,7 +68,7 @@ function Trashed({ appId }: { appId: string }) {
 }
 
 export function ManageApp() {
-  const { appId = '', tab = 'overview' } = useParams()
+  const { appId = '', tab } = useParams()
   const app = useDemo((s) => s.apps[appId])
   const inst = useDemo((s) => s.installs[appId])
   const dev = useDemo((s) => (app ? s.developers[app.developerId] : undefined))
@@ -82,12 +81,12 @@ export function ManageApp() {
     if (trashed) return <Trashed appId={appId} />
     return <Navigate to={`/apps/${appId}`} replace />
   }
+  if (!tab || tab === 'overview') return <Navigate to={`/my/${appId}/spaces`} replace />
 
   const base = `/my/${appId}`
   const tabs = [
-    { to: base, label: '🏠 Overview', end: true },
-    { to: `${base}/data`, label: '🗄️ Data' },
     { to: `${base}/spaces`, label: '👥 Spaces', badge: <Badge tone="white" className="px-1.5 py-0 text-[10px]">{inst.spaceIds.length}</Badge> },
+    { to: `${base}/data`, label: '🗄️ Data' },
     { to: `${base}/backups`, label: '💾 Backups' },
     { to: `${base}/activity`, label: '📜 Activity' },
     { to: `${base}/settings`, label: '⚙️ Settings' },
@@ -148,7 +147,6 @@ export function ManageApp() {
 
       <Tabs tabs={tabs} className="mb-6" />
 
-      {tab === 'overview' && <OverviewTab appId={appId} />}
       {tab === 'data' && <DataTab appId={appId} />}
       {tab === 'spaces' && <SpacesTab appId={appId} />}
       {tab === 'backups' && <BackupsTab appId={appId} />}

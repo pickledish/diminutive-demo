@@ -65,7 +65,6 @@ export function Explore() {
   const cat = (params.get('cat') as Category | null) ?? null
   const sort = (params.get('sort') as Sort | null) ?? 'popular'
   const sealed = params.get('sealed') === '1'
-  const shared = params.get('shared') === '1'
 
   const update = (patch: Record<string, string | null>) => {
     const next = new URLSearchParams(params)
@@ -77,7 +76,7 @@ export function Explore() {
   }
 
   const published = useMemo(() => Object.values(apps).filter((a) => a.published), [apps])
-  const filtering = !!(q || cat || sealed || shared || params.get('sort'))
+  const filtering = !!(q || cat || sealed || params.get('sort'))
 
   const results = useMemo(() => {
     const needle = q.toLowerCase().trim()
@@ -85,13 +84,12 @@ export function Explore() {
       (a) =>
         (!cat || a.category === cat) &&
         (!sealed || a.network.length === 0) &&
-        (!shared || a.supportsSpaces) &&
         (!needle || [a.name, a.tagline, a.description, ...a.tags].some((s) => s.toLowerCase().includes(needle))),
     )
     return list.sort((a, b) =>
       sort === 'new' ? b.createdAt.localeCompare(a.createdAt) : sort === 'rating' ? b.rating - a.rating || b.ratingCount - a.ratingCount : b.installs - a.installs,
     )
-  }, [published, q, cat, sealed, shared, sort])
+  }, [published, q, cat, sealed, sort])
 
   const byCat = (cats: Category[]) =>
     published
@@ -143,12 +141,6 @@ export function Explore() {
             title="Apps that can't talk to the internet"
           >
             🔒 Sealed only
-          </button>
-          <button
-            onClick={() => update({ shared: shared ? null : '1' })}
-            className={cn('shrink-0 rounded-full border-2 border-ink px-3.5 py-1.5 text-sm font-bold', shared ? 'bg-bubblegum' : 'bg-white hover:bg-bubblegum/40')}
-          >
-            👥 Shareable
           </button>
         </div>
       </div>

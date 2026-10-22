@@ -103,21 +103,19 @@ export function AnalyticsTab({ appId }: { appId: string }) {
           </div>
         </Card>
         <div className="flex flex-col gap-4">
-          {app.supportsSpaces && (
-            <Card className="p-5">
-              <div className="font-display text-lg font-extrabold">👥 Sharing</div>
-              <div className="mt-2 grid grid-cols-2 gap-3">
-                <div>
-                  <div className="font-display text-3xl font-extrabold">{kAnon(a.totals.sharedSpaces)}</div>
-                  <div className="text-xs font-bold text-ink/55">shared spaces</div>
-                </div>
-                <div>
-                  <div className="font-display text-3xl font-extrabold">{a.totals.avgMembers}</div>
-                  <div className="text-xs font-bold text-ink/55">people per space, on average</div>
-                </div>
+          <Card className="p-5">
+            <div className="font-display text-lg font-extrabold">👥 Sharing</div>
+            <div className="mt-2 grid grid-cols-2 gap-3">
+              <div>
+                <div className="font-display text-3xl font-extrabold">{kAnon(a.totals.sharedSpaces)}</div>
+                <div className="text-xs font-bold text-ink/55">shared spaces</div>
               </div>
-            </Card>
-          )}
+              <div>
+                <div className="font-display text-3xl font-extrabold">{a.totals.avgMembers}</div>
+                <div className="text-xs font-bold text-ink/55">people per space, on average</div>
+              </div>
+            </div>
+          </Card>
           <Card className="p-5">
             <div className="font-display text-lg font-extrabold">💾 Storage per install</div>
             <div className="mt-2 grid grid-cols-2 gap-3">

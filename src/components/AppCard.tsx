@@ -38,7 +38,6 @@ export function AppCard({ app, className }: { app: AppListing; className?: strin
       <div className="mt-3 flex flex-wrap items-center gap-1.5">
         {installed && <Badge tone="sun">✓ Installed</Badge>}
         <SealedBadge app={app} />
-        {app.supportsSpaces ? <Badge tone="white">👥 Shareable</Badge> : <Badge tone="white">🙋 Personal</Badge>}
       </div>
     </Link>
   )

@@ -113,7 +113,7 @@ const FAQ = [
   ],
   [
     'How does sharing work?',
-    'Inside any shareable app, you can make a space (“Park House”, “Lake Trip”, “Book Club”) and invite people as editors or viewers. Whoever made the space owns its data: they control members, backups and deletion. You can hand ownership to someone else anytime.',
+    'Every app starts you with one personal space. You can make more (“Park House”, “Lake Trip”, “Book Club”) and invite people as editors or viewers. Whoever made a space owns its data: they control members, backups and deletion. You can hand ownership to someone else anytime.',
   ],
   [
     'What happens when an app updates?',

@@ -103,8 +103,6 @@ export interface AppListing {
   sizeKb: number
   permissions: PermissionKey[]
   network: string[]
-  supportsSpaces: boolean
-  maxMembers?: number
   staffPick?: boolean
   mock: MockKind
   changelog: ChangelogEntry[]

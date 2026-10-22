@@ -333,8 +333,6 @@ export function Listing() {
               <dd className="font-bold">{timeAgo(app.updatedAt)}</dd>
               <dt className="font-bold text-ink/55">Size</dt>
               <dd className="font-bold">{formatKb(app.sizeKb)}</dd>
-              <dt className="font-bold text-ink/55">Sharing</dt>
-              <dd className="font-bold">{app.supportsSpaces ? `Spaces of up to ${app.maxMembers} people` : 'Personal only'}</dd>
               <dt className="font-bold text-ink/55">Internet</dt>
               <dd>
                 <SealedBadge app={app} long />

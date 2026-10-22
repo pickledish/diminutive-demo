@@ -3,7 +3,7 @@ import { bgSoft } from '@/lib/colors'
 import { cn } from '@/lib/utils'
 
 export function SchemaCards({ schema, color = 'sun', highlight = [], stacked }: { schema: TableSchema[]; color?: ColorKey; highlight?: string[]; stacked?: boolean }) {
-  if (!schema.length) return <p className="text-sm text-ink/60">No tables yet. Write your first migration to create some.</p>
+  if (!schema.length) return <p className="text-sm text-ink/60">No tables yet. They show up once a migration ships in a release.</p>
   return (
     <div className={cn('grid gap-3', !stacked && 'sm:grid-cols-2 xl:grid-cols-3')}>
       {schema.map((t) => (

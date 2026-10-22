@@ -9,8 +9,7 @@ import { cn } from '@/lib/utils'
 import { toast } from '../ui/toast'
 import { Modal } from '../ui/Modal'
 import { AppIcon } from '../ui/identity'
-import { Button, Callout, Input, LinkButton } from '../ui/primitives'
-import { EmojiPicker } from './EmojiPicker'
+import { Button, Callout, LinkButton } from '../ui/primitives'
 
 export function PermissionList({ app, compact }: { app: AppListing; compact?: boolean }) {
   return (
@@ -50,17 +49,13 @@ export function InstallModal({ app, open, onClose }: { app: AppListing; open: bo
   const install = useDemo((s) => s.installApp)
   const dev = useDemo((s) => s.developers[app.developerId])
   const navigate = useNavigate()
-  const [where, setWhere] = useState<'me' | 'shared'>('me')
-  const [name, setName] = useState('')
-  const [emoji, setEmoji] = useState('🏡')
 
   const go = () => {
-    const shared = where === 'shared' && app.supportsSpaces
-    install(app.id, shared ? { spaceName: name.trim() || `Our ${app.name}`, spaceEmoji: emoji } : undefined)
+    install(app.id)
     celebrate()
-    toast({ emoji: app.emoji, title: `${app.name} is installed!`, body: shared ? 'Now invite your people into your new space.' : 'It’s on your shelf.', tone: 'success' })
+    toast({ emoji: app.emoji, title: `${app.name} is installed!`, body: 'It’s on your shelf, with a space just for you.', tone: 'success' })
     onClose()
-    navigate(shared ? `/my/${app.id}/spaces` : `/my/${app.id}`)
+    navigate(`/my/${app.id}/spaces`)
   }
 
   return (
@@ -96,42 +91,9 @@ export function InstallModal({ app, open, onClose }: { app: AppListing; open: bo
           <PermissionList app={app} />
         </div>
         <div className="flex flex-col gap-4">
-          <div>
-            <div className="mb-2 text-xs font-extrabold tracking-wider text-ink/50 uppercase">Where should its data live?</div>
-            {app.supportsSpaces ? (
-              <div className="flex flex-col gap-2">
-                {(
-                  [
-                    ['me', '🙂', 'Just me, for now', 'A private space. You can invite people later.'],
-                    ['shared', '👥', 'A shared space', 'Start a space for your household, team or crew. You’ll own it.'],
-                  ] as const
-                ).map(([id, e, title, sub]) => (
-                  <button
-                    key={id}
-                    onClick={() => setWhere(id)}
-                    className={cn('flex items-start gap-3 rounded-xl border-2 p-3 text-left transition-all', where === id ? 'border-ink bg-sun/40 shadow-brut-sm' : 'border-ink/20 bg-white hover:border-ink')}
-                  >
-                    <span className="text-2xl leading-none">{e}</span>
-                    <span>
-                      <span className="block font-bold">{title}</span>
-                      <span className="block text-sm text-ink/65">{sub}</span>
-                    </span>
-                    <span className={cn('ml-auto mt-1 size-4 shrink-0 rounded-full border-2 border-ink', where === id ? 'bg-ink' : 'bg-white')} />
-                  </button>
-                ))}
-                {where === 'shared' && (
-                  <div className="animate-pop rounded-xl border-2 border-ink bg-white p-3">
-                    <Input autoFocus placeholder={`e.g. “The ${['Park', 'Lake', 'Taco', 'Office'][app.name.length % 4]} Crew”`} value={name} onChange={(e) => setName(e.target.value)} />
-                    <EmojiPicker value={emoji} onChange={setEmoji} className="mt-3" />
-                  </div>
-                )}
-              </div>
-            ) : (
-              <Callout emoji="🙋" tone="white">
-                <b>Personal-only app.</b> Its maker turned off sharing, so this data is only ever yours.
-              </Callout>
-            )}
-          </div>
+          <Callout emoji="🙂" tone="white">
+            <b>You’ll start with a space just for you.</b> Make another anytime to share with friends, a household, or a team. Whoever creates a space owns its data.
+          </Callout>
           <Callout emoji="🔐" tone="mint">
             <b>{dev?.name} can’t see anything you put in here.</b> Not your rows, not your files, not a peek. They only see that someone installed it.
           </Callout>

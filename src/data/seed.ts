@@ -221,7 +221,7 @@ function lousPotluck(): Tables {
 
 /* ---------------------------- Assembly ---------------------------- */
 
-export const SEED_VERSION = 7
+export const SEED_VERSION = 8
 
 function installFor(app: AppListing, spaceIds: string[], installedDays: number, overrides: Partial<Install> = {}): Install {
   return {

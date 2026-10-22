@@ -154,7 +154,7 @@ export function Runner() {
           <span className={cn('hidden items-center gap-1 rounded-full border-2 px-2 py-0.5 text-xs font-bold md:inline-flex', app.network.length ? 'border-paper/30' : 'border-mint text-mint')}>
             {app.network.length ? `🌐 ${app.network.length} allowed site${app.network.length > 1 ? 's' : ''}` : '🔒 Sealed'}
           </span>
-          {owner && app.supportsSpaces && (
+          {owner && (
             <button onClick={() => setInviting(true)} className="flex items-center gap-1.5 rounded-lg border-2 border-ink bg-sun px-2.5 py-1 text-sm font-bold text-ink">
               <UserPlus size={15} strokeWidth={2.5} /> <span className="hidden sm:inline">Share</span>
             </button>

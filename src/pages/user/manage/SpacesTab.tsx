@@ -52,7 +52,6 @@ export function SpaceFormModal({ open, onClose, onSave, initial, title }: { open
 function SpaceCard({ space }: { space: Space }) {
   const meId = useDemo((s) => s.meId)
   const people = useDemo((s) => s.people)
-  const app = useDemo((s) => s.apps[space.appId])
   const setRole = useDemo((s) => s.setMemberRole)
   const removeMember = useDemo((s) => s.removeMember)
   const cancelInvite = useDemo((s) => s.cancelInvite)
@@ -81,7 +80,7 @@ function SpaceCard({ space }: { space: Space }) {
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
-          {owner && app.supportsSpaces && (
+          {owner && (
             <Button size="sm" variant="blue" onClick={() => setInviting(true)}>
               <UserPlus size={15} strokeWidth={2.5} /> Invite
             </Button>
@@ -239,7 +238,6 @@ function SpaceCard({ space }: { space: Space }) {
 }
 
 export function SpacesTab({ appId }: { appId: string }) {
-  const app = useDemo((s) => s.apps[appId])
   const inst = useDemo((s) => s.installs[appId])
   const spaces = useDemo((s) => s.spaces)
   const create = useDemo((s) => s.createSpace)
@@ -248,20 +246,14 @@ export function SpacesTab({ appId }: { appId: string }) {
 
   return (
     <div className="flex flex-col gap-6">
-      {app.supportsSpaces ? (
-        <div className="flex flex-wrap items-center gap-4">
-          <Callout emoji="👑" tone="white" className="flex-1">
-            <b>Whoever creates a space owns its data.</b> They decide who’s in, who can edit, and when it gets backed up or deleted. Up to {app.maxMembers} people per space.
-          </Callout>
-          <Button onClick={() => setCreating(true)}>
-            <Plus size={16} strokeWidth={3} /> New space
-          </Button>
-        </div>
-      ) : (
-        <Callout emoji="🙋" tone="white">
-          <b>{app.name} is personal-only.</b> Its maker turned off sharing, so there’s just one space and it’s only ever yours.
+      <div className="flex flex-wrap items-center gap-4">
+        <Callout emoji="🙂" tone="white" className="flex-1">
+          <b>You start with one space, just for you.</b> Make another to share with friends, a household, or a team. Whoever creates a space owns its data: who’s in, who can edit, and when it’s backed up or deleted.
         </Callout>
-      )}
+        <Button onClick={() => setCreating(true)}>
+          <Plus size={16} strokeWidth={3} /> New space
+        </Button>
+      </div>
       {mine.map((sp) => (
         <SpaceCard key={sp.id} space={sp} />
       ))}

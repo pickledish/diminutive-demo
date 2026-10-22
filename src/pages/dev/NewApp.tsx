@@ -25,15 +25,14 @@ export function NewApp() {
   const [emoji, setEmoji] = useState('🌮')
   const [color, setColor] = useState<ColorKey>('tangerine')
   const [category, setCategory] = useState<Category>('friends')
-  const [spaces, setSpaces] = useState(true)
   const [perms, setPerms] = useState<PermissionKey[]>(['notifications'])
   const [createdId, setCreatedId] = useState<string | null>(null)
 
   const slug = slugify(name) || 'my-app'
-  const steps = ['The basics', 'How it’s used', 'Ready to build']
+  const steps = ['The basics', 'Abilities', 'Ready to build']
 
   const finish = () => {
-    const id = create({ name: name.trim(), emoji, color, category, tagline: tagline.trim() || 'A tiny app for my people.', supportsSpaces: spaces, permissions: perms })
+    const id = create({ name: name.trim(), emoji, color, category, tagline: tagline.trim() || 'A tiny app for my people.', permissions: perms })
     setCreatedId(id)
     setStep(2)
     celebrate('big')
@@ -116,25 +115,6 @@ export function NewApp() {
       {step === 1 && (
         <Card className="flex flex-col gap-6 p-6">
           <div>
-            <Label hint="You can change this later, but it’s good to decide early.">Will people use it together?</Label>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {(
-                [
-                  [true, '👥', 'Shareable', 'Users can make spaces and invite their people. Great for households, trips, clubs and teams.'],
-                  [false, '🙋', 'Personal only', 'Each person’s data is just theirs. Great for journals, budgets and habit trackers.'],
-                ] as const
-              ).map(([v, e, t, d]) => (
-                <button key={t} onClick={() => setSpaces(v)} className={cn('flex gap-3 rounded-xl border-2 p-4 text-left', spaces === v ? 'border-ink bg-sun/40 shadow-brut-sm' : 'border-ink/20 bg-white hover:border-ink')}>
-                  <span className="text-3xl">{e}</span>
-                  <span>
-                    <span className="block font-display text-lg font-extrabold">{t}</span>
-                    <span className="block text-sm text-ink/65">{d}</span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-          <div>
             <Label hint="Users see these before installing. Ask for less and people trust you more.">Extra abilities</Label>
             <div className="grid gap-2 sm:grid-cols-2">
               {OPTIONAL.map((p) => {
@@ -154,7 +134,7 @@ export function NewApp() {
             </div>
           </div>
           <Callout emoji="🎁" tone="sun">
-            <b>Included with every app:</b> login, a database in each user’s cubby, realtime sync, backups, hosting, and migrations. You don’t configure any of it.
+            <b>Included with every app:</b> login, one personal space per install, more spaces whenever a user wants them, realtime sync, backups, hosting, and migrations. You don’t configure any of it.
           </Callout>
           <div className="flex justify-between">
             <Button variant="white" onClick={() => setStep(0)}>

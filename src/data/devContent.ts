@@ -46,7 +46,8 @@ How Cubby apps work:
   (new tables, nullable columns, defaults). Avoid DROP unless truly necessary.
 - Every migration needs a one-line "@summary" comment written for normal people.
   Users read it before approving the update.
-- Shared data lives in "spaces". Use cubby.spaces.current() and assume the user
+- Data lives in "spaces". Every install starts with one personal space, and users
+  can create more and invite people. Use cubby.spaces.current() and assume the user
   may switch spaces at any time. Respect roles: owner, editor, viewer.
 - Network access is blocked unless the domain is in cubby.json "network". Keep it empty
   unless the app truly needs an outside API.
