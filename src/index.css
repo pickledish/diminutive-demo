@@ -64,7 +64,7 @@
   box-shadow: var(--shadow-brut-xs);
 }
 @utility press {
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  transition: transform 0.08s ease;
   &:hover {
     transform: translate(-1px, -1px);
     box-shadow: 4px 4px 0 0 var(--color-ink);
@@ -75,7 +75,7 @@
   }
 }
 @utility lift {
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition: transform 0.12s ease;
   &:hover {
     transform: translate(-2px, -2px);
     box-shadow: 7px 7px 0 0 var(--color-ink);

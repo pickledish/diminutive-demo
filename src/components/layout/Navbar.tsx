@@ -272,7 +272,7 @@ export function Navbar() {
   ))
 
   return (
-    <header className={cn('sticky top-0 z-40 border-b-[3px] border-ink backdrop-blur', workshop ? 'bg-grape/35' : 'bg-cream/90')}>
+    <header className={cn('sticky top-0 z-40 border-b-[3px] border-ink', workshop ? 'bg-[#efe6ff]' : 'bg-cream/95')}>
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4">
         <Link to={workshop ? '/workshop' : '/home'} className="shrink-0">
           <Logo withText={false} size={36} className="sm:hidden" />

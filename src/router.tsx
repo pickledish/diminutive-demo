@@ -1,4 +1,5 @@
-import { Outlet, ScrollRestoration, createHashRouter } from 'react-router'
+import { useLayoutEffect } from 'react'
+import { Outlet, useLocation, createHashRouter } from 'react-router'
 import { Toaster } from './components/ui/toast'
 import { AppShell } from './components/layout/AppShell'
 import { TourWidget } from './components/layout/TourWidget'
@@ -17,10 +18,33 @@ import { NewApp } from './pages/dev/NewApp'
 import { Docs } from './pages/dev/Docs'
 import { DevAppPage } from './pages/dev/app/DevAppPage'
 
+if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useLayoutEffect(() => {
+    window.history.scrollRestoration = 'manual'
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  useLayoutEffect(() => {
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (!event.persisted) return
+      window.history.scrollRestoration = 'manual'
+      window.scrollTo(0, 0)
+    }
+    window.addEventListener('pageshow', onPageShow)
+    return () => window.removeEventListener('pageshow', onPageShow)
+  }, [])
+
+  return null
+}
+
 function Root() {
   return (
     <>
-      <ScrollRestoration getKey={(location) => location.pathname} />
+      <ScrollToTop />
       <Outlet />
       <TourWidget />
       <Toaster />
