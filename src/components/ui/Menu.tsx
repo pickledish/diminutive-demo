@@ -41,7 +41,7 @@ export function MenuItem({ onClick, children, danger, emoji }: { onClick?: () =>
   return (
     <button
       onClick={onClick}
-      className={cn('flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-sm font-bold hover:bg-sun/40', danger && 'text-[#c42b2b] hover:bg-cherry/25')}
+      className={cn('flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-sm font-bold hover:bg-accent/40', danger && 'text-[#c42b2b] hover:bg-cherry/25')}
     >
       {emoji && <span className="w-5 text-center">{emoji}</span>}
       {children}

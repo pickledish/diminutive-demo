@@ -28,7 +28,7 @@ export function ConfirmModal({
       title={title}
       emoji={emoji}
       size="sm"
-      tone={danger ? 'cherry' : 'sun'}
+      tone={danger ? 'cherry' : undefined}
       footer={
         <>
           <Button variant="white" onClick={onClose}>

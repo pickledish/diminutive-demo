@@ -36,7 +36,7 @@ function DevAppCard({ dev }: { dev: DevApp }) {
         </div>
       </div>
       {dev.status === 'draft' ? (
-        <div className="mx-4 mb-4 rounded-xl border-2 border-dashed border-ink/30 bg-paper p-3 text-sm">
+        <div className="mx-4 mb-4 rounded-xl border-2 border-dashed border-ink/30 bg-surface-2 p-3 text-sm">
           <div className="font-bold">Not published yet</div>
           <div className="text-ink/60">{dev.releases.length ? `${dev.releases.length} preview release · only you can open it` : 'Deploy your first build to get started'}</div>
         </div>
@@ -106,7 +106,7 @@ export function Workshop() {
       />
 
       <div className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <Stat label="Total installs" value={compact(installs)} emoji="🏠" tone="sun" sub="across your published apps" />
+        <Stat label="Total installs" value={compact(installs)} emoji="🏠" tone="accent" sub="across your published apps" />
         <Stat label="Active this week" value={compact(active)} emoji="⚡" sub="opened at least once" />
         <Stat label="Tips received" value={money(tips)} emoji="💛" tone="pink" sub="100% yours, Cubby takes 0%" />
         <Stat label="Average rating" value={avg ? avg.toFixed(1) : '—'} emoji="⭐" tone="mint" sub={<Stars value={avg} size={11} />} />
@@ -136,7 +136,7 @@ export function Workshop() {
             <CardHeader title="Latest feedback" emoji="💬" />
             <div className="divide-y-2 divide-ink/10">
               {feedback.map((f) => (
-                <Link key={f.id} to={`/workshop/${f.appId}/feedback`} className="flex gap-3 px-5 py-3 hover:bg-sun/20">
+                <Link key={f.id} to={`/workshop/${f.appId}/feedback`} className="flex gap-3 px-5 py-3 hover:bg-accent/20">
                   <AppIcon app={apps[f.appId]} size="xs" />
                   <div className="min-w-0 flex-1">
                     <div className="line-clamp-2 text-sm leading-snug">{f.text}</div>

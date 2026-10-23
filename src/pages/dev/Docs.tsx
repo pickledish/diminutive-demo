@@ -27,7 +27,7 @@ const LIFECYCLE = [
   ['✍️', 'You write SQL', 'Add migrations/0007_*.sql with a plain-words @summary.', 'bg-white'],
   ['🔎', 'Cubby checks it', 'Lints for risky changes and dry-runs it on synthetic data shaped like your schema.', 'bg-sky/40'],
   ['🚢', 'You ship a release', 'The migration rides along with your new frontend bundle.', 'bg-white'],
-  ['🙋', 'Users say yes', 'Each user (or space owner) sees your summary and approves. Or has auto-approve on.', 'bg-sun/50'],
+  ['🙋', 'Users say yes', 'Each user (or space owner) sees your summary and approves. Or has auto-approve on.', 'bg-accent/50'],
   ['💾', 'Backup → apply', 'Cubby snapshots that install, runs your SQL, and checks it worked.', 'bg-white'],
   ['↩️', 'Failure? Undo.', 'If anything fails, that install rolls back automatically. You get an anonymous error report.', 'bg-mint/40'],
 ]

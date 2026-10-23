@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { Link, useNavigate, useSearchParams } from 'react-router'
+import { startModeSwitch } from '@/lib/mode'
 import { Search } from 'lucide-react'
 import type { AppListing, Category } from '@/types'
 import { useDemo } from '@/store'
@@ -59,6 +60,7 @@ function Spotlight({ app }: { app: AppListing }) {
 }
 
 export function Explore() {
+  const navigate = useNavigate()
   const apps = useDemo((s) => s.apps)
   const [params, setParams] = useSearchParams()
   const q = params.get('q') ?? ''
@@ -163,7 +165,7 @@ export function Explore() {
               ))}
             </div>
           ) : (
-            <EmptyState emoji="🕳️" title="No apps match… yet" action={<LinkButton to="/workshop/new" variant="grape">🛠️ Build it yourself</LinkButton>}>
+            <EmptyState emoji="🕳️" title="No apps match… yet" action={<LinkButton to="/workshop/new" variant="grape" onClick={(e) => startModeSwitch(e, navigate, '/workshop/new')}>🛠️ Build it yourself</LinkButton>}>
               Nobody’s made that one. Maybe you should? With an AI agent and the Cubby SDK, it’s an afternoon project.
             </EmptyState>
           )}
@@ -182,7 +184,7 @@ export function Explore() {
               <div className="font-display text-2xl font-extrabold">Can’t find the app you want?</div>
               <div className="text-ink/75">Most apps here started as “I wish there was an app for my family that…”. Build yours in the Workshop.</div>
             </div>
-            <Link to="/workshop/new" className="shrink-0">
+            <Link to="/workshop/new" onClick={(e) => startModeSwitch(e, navigate, '/workshop/new')} className="shrink-0">
               <span className="brut-sm press inline-flex h-12 items-center rounded-xl bg-sun px-5 font-bold">Start building</span>
             </Link>
           </div>

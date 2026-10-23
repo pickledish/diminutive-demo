@@ -7,7 +7,7 @@ type Variant = 'primary' | 'pink' | 'blue' | 'mint' | 'white' | 'dark' | 'danger
 type Size = 'xs' | 'sm' | 'md' | 'lg'
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-sun',
+  primary: 'bg-accent',
   pink: 'bg-bubblegum',
   blue: 'bg-sky',
   mint: 'bg-mint',
@@ -74,6 +74,7 @@ const badgeTones = {
   default: 'bg-white',
   white: 'bg-white',
   sun: 'bg-sun',
+  accent: 'bg-accent',
   pink: 'bg-bubblegum',
   blue: 'bg-sky',
   sky: 'bg-sky',
@@ -243,7 +244,7 @@ export function Stat({ label, value, sub, tone = 'default', emoji, className }: 
   )
 }
 
-export function Callout({ emoji = '💡', tone = 'sun', children, className, action }: { emoji?: string; tone?: BadgeTone; children: ReactNode; className?: string; action?: ReactNode }) {
+export function Callout({ emoji = '💡', tone = 'accent', children, className, action }: { emoji?: string; tone?: BadgeTone; children: ReactNode; className?: string; action?: ReactNode }) {
   return (
     <div className={cn('flex items-start gap-3 rounded-xl border-2 border-ink p-3 text-sm', badgeTones[tone], className)}>
       <span className="text-lg leading-none">{emoji}</span>

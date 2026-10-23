@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router'
+import { crossesMode, startModeSwitch } from '@/lib/mode'
 import { ChevronDown } from 'lucide-react'
 import { useDemo } from '@/store'
 import type { TourStep } from '@/types'
@@ -17,6 +18,8 @@ const STEPS: { id: TourStep; label: string; to: string; side: 'user' | 'maker' }
 
 export function TourWidget() {
   const tour = useDemo((s) => s.tour)
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const done = STEPS.filter((s) => tour[s.id]).length
 
@@ -38,7 +41,15 @@ export function TourWidget() {
               <div key={side}>
                 <div className="px-2 pt-2 pb-1 text-[11px] font-extrabold tracking-wider text-ink/50 uppercase">{side === 'user' ? '🏠 As an app user' : '🛠️ As a maker'}</div>
                 {STEPS.filter((s) => s.side === side).map((s) => (
-                  <Link key={s.id} to={s.to} onClick={() => setOpen(false)} className="flex items-start gap-2.5 rounded-lg px-2 py-1.5 text-sm hover:bg-sun/30">
+                  <Link
+                    key={s.id}
+                    to={s.to}
+                    onClick={(e) => {
+                      setOpen(false)
+                      if (crossesMode(pathname, s.to)) startModeSwitch(e, navigate, s.to)
+                    }}
+                    className="flex items-start gap-2.5 rounded-lg px-2 py-1.5 text-sm hover:bg-accent/30"
+                  >
                     <span className={cn('mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-md border-2 border-ink text-xs font-extrabold', tour[s.id] ? 'bg-mint' : 'bg-white')}>
                       {tour[s.id] ? '✓' : ''}
                     </span>

@@ -13,7 +13,7 @@ function CopyField({ label, value }: { label: string; value: string }) {
     <div>
       <div className="mb-1 text-sm font-bold">{label}</div>
       <div className="flex items-center gap-2">
-        <code className="min-w-0 flex-1 truncate rounded-xl border-2 border-ink bg-paper px-3 py-2 font-mono text-sm">{value}</code>
+        <code className="min-w-0 flex-1 truncate rounded-xl border-2 border-ink bg-surface-2 px-3 py-2 font-mono text-sm">{value}</code>
         <Button
           size="sm"
           variant="white"
@@ -134,7 +134,7 @@ export function DevSettingsTab({ appId }: { appId: string }) {
               <div key={c.name} className="flex items-center gap-3 px-3 py-2.5">
                 <span className="text-xl">{c.emoji}</span>
                 <span className="flex-1 font-bold">{c.name}</span>
-                <Badge tone={c.role === 'owner' ? 'sun' : 'white'}>{c.role}</Badge>
+                <Badge tone={c.role === 'owner' ? 'accent' : 'white'}>{c.role}</Badge>
                 {c.role !== 'owner' && (
                   <button onClick={() => removeCollab(appId, c.name)} className="rounded-md p-1 hover:bg-cherry/25" aria-label={`Remove ${c.name}`}>
                     <X size={16} strokeWidth={3} />

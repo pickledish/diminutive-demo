@@ -17,6 +17,11 @@
   --color-cherry: #ff6363;
   --color-lime: #c9f25c;
 
+  /* Follow the active mode. Workshop overrides these on <html>. */
+  --color-accent: var(--color-sun);
+  --color-surface: var(--color-cream);
+  --color-surface-2: var(--color-paper);
+
   --shadow-brut-xs: 2px 2px 0 0 var(--color-ink);
   --shadow-brut-sm: 3px 3px 0 0 var(--color-ink);
   --shadow-brut: 5px 5px 0 0 var(--color-ink);
@@ -99,7 +104,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
   body {
-    @apply bg-cream text-ink font-sans;
+    @apply bg-surface text-ink font-sans;
   }
   h1, h2, h3, h4 {
     @apply font-display;
@@ -123,4 +128,47 @@
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+html {
+  view-transition-name: root;
+}
+
+html[data-mode='workshop'] {
+  --color-accent: var(--color-grape);
+  --color-surface: #f3ecff;
+  --color-surface-2: #fbf8ff;
+}
+html[data-mode='workshop'] ::selection {
+  background: var(--color-grape);
+}
+
+/* Mode switch: screens stay edge to edge, easeInCubic into a hard stop.
+   Direction follows the destination, already on <html> when the new snapshot
+   is taken. */
+@keyframes vt-out-left { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes vt-in-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes vt-out-right { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes vt-in-left { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.25, 0, 0.75, 0);
+  animation-fill-mode: both;
+  mix-blend-mode: normal;
+}
+
+html[data-mode='workshop']::view-transition-old(root) { animation-name: vt-out-left; }
+html[data-mode='workshop']::view-transition-new(root) { animation-name: vt-in-right; z-index: 1; }
+html[data-mode='my']::view-transition-old(root) { animation-name: vt-out-right; }
+html[data-mode='my']::view-transition-new(root) { animation-name: vt-in-left; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-mode='workshop']::view-transition-old(root),
+  html[data-mode='workshop']::view-transition-new(root),
+  html[data-mode='my']::view-transition-old(root),
+  html[data-mode='my']::view-transition-new(root) {
+    animation: none;
+  }
 }

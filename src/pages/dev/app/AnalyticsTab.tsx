@@ -41,7 +41,7 @@ export function AnalyticsTab({ appId }: { appId: string }) {
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="New installs" value={`+${kAnon(a.totals.newInRange)}`} emoji="🌱" tone="mint" sub={`in the last ${range} days`} />
         <Stat label="Uninstalls" value={kAnon(a.totals.uninstallsInRange)} emoji="👋" sub={`net ${net >= 0 ? '+' : ''}${net.toLocaleString()}`} />
-        <Stat label="Opens per day" value={kAnon(a.totals.opensPerDay)} emoji="⚡" tone="sun" sub="average" />
+        <Stat label="Opens per day" value={kAnon(a.totals.opensPerDay)} emoji="⚡" tone="accent" sub="average" />
         <Stat label="Errors" value={a.totals.errorsPer1k} emoji="🐛" sub="per 1,000 sessions" />
       </div>
 
@@ -54,7 +54,7 @@ export function AnalyticsTab({ appId }: { appId: string }) {
               value: d.installs,
               highlight: dev.releases.some((r) => r.channel !== 'preview' && r.createdAt.slice(0, 10) === d.date),
             }))}
-            barClass="bg-sun"
+            barClass="bg-accent"
             height={190}
             format={kAnon}
           />

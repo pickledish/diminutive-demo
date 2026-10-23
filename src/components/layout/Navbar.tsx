@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router'
-import { Bell } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Bell } from 'lucide-react'
+import { crossesMode, modeTransition, startModeSwitch, useMode } from '@/lib/mode'
 import { useDemo, useMe } from '@/store'
 import type { AppNotification, Invite } from '@/types'
 import { celebrate } from '@/lib/fx'
@@ -11,18 +12,26 @@ import { Button } from '../ui/primitives'
 import { UpdateReviewModal } from '../flows/UpdateReview'
 import { toast } from '../ui/toast'
 
-function ModeSwitch({ workshop }: { workshop: boolean }) {
+function ModeJump({ to, dir }: { to: string; dir: 'left' | 'right' }) {
+  const navigate = useNavigate()
+  const toWorkshop = dir === 'right'
+  const label = toWorkshop ? 'Switch to Workshop' : 'Switch to My Cubby'
   return (
-    <div className="flex rounded-xl border-2 border-ink bg-white p-0.5 shadow-brut-xs">
-      <Link to="/home" className={cn('rounded-lg px-2.5 py-1 text-sm font-extrabold transition-colors sm:px-3', !workshop ? 'bg-sun' : 'text-ink/60 hover:text-ink')}>
-        <span className="sm:hidden">🏠</span>
-        <span className="hidden sm:inline">🏠 My Cubby</span>
-      </Link>
-      <Link to="/workshop" className={cn('rounded-lg px-2.5 py-1 text-sm font-extrabold transition-colors sm:px-3', workshop ? 'bg-grape' : 'text-ink/60 hover:text-ink')}>
-        <span className="sm:hidden">🛠️</span>
-        <span className="hidden sm:inline">🛠️ Workshop</span>
-      </Link>
-    </div>
+    <Link
+      to={to}
+      onClick={(e) => startModeSwitch(e, navigate, to)}
+      aria-label={label}
+      title={label}
+      className={cn(
+        'group brut-xs press inline-flex shrink-0 items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-sm font-extrabold whitespace-nowrap sm:px-3',
+        toWorkshop ? 'bg-grape' : 'bg-sun',
+      )}
+    >
+      {!toWorkshop && <ArrowLeft size={16} strokeWidth={3} className="transition-transform group-hover:-translate-x-0.5" />}
+      <span>{toWorkshop ? '🛠️' : '🏠'}</span>
+      <span className="hidden sm:inline">{toWorkshop ? 'Workshop' : 'My Cubby'}</span>
+      {toWorkshop && <ArrowRight size={16} strokeWidth={3} className="transition-transform group-hover:translate-x-0.5" />}
+    </Link>
   )
 }
 
@@ -38,7 +47,7 @@ function UpdateNotice({ appId, onReview }: { appId: string; onReview: () => void
   if (!upd || !app) return null
   const changesData = upd.dataSummary.length > 0
   return (
-    <div className="border-b-2 border-ink/10 bg-sun/40 px-4 py-3">
+    <div className="border-b-2 border-ink/10 bg-accent/40 px-4 py-3">
       <div className="flex gap-3">
         <span className="text-xl leading-none">{app.emoji}</span>
         <div className="min-w-0 flex-1">
@@ -62,6 +71,7 @@ function InviteNotice({ invite, close }: { invite: Invite; close: () => void }) 
   const accept = useDemo((s) => s.acceptInvite)
   const decline = useDemo((s) => s.declineInvite)
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const who = from?.name.split(' ')[0]
 
   return (
@@ -94,7 +104,8 @@ function InviteNotice({ invite, close }: { invite: Invite; close: () => void }) 
               tone: 'success',
             })
             close()
-            if (sid) navigate(`/my/${invite.appId}/spaces`)
+            const dest = `/my/${invite.appId}/spaces`
+            if (sid) navigate(dest, crossesMode(pathname, dest) ? modeTransition : undefined)
           }}
         >
           {installed ? 'Join space' : 'Install & join'}
@@ -123,6 +134,7 @@ function Notifications() {
   const markAllRead = useDemo((s) => s.markAllRead)
   const markRead = useDemo((s) => s.markRead)
   const navigate = useNavigate()
+  const { pathname } = useLocation()
   const [reviewAppId, setReviewAppId] = useState<string | null>(null)
 
   const pendingIds = Object.keys(pending).filter((id) => installs[id])
@@ -138,7 +150,7 @@ function Notifications() {
       <Menu
         className="w-[min(400px,calc(100vw-2rem))]"
         trigger={(open) => (
-          <button className={cn('brut-xs press relative rounded-xl p-2', open ? 'bg-sun' : 'bg-white')} aria-label="Notifications">
+          <button className={cn('brut-xs press relative rounded-xl p-2', open ? 'bg-accent' : 'bg-white')} aria-label="Notifications">
             <Bell size={18} strokeWidth={2.5} />
             {badge > 0 && (
               <span className="absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full border-2 border-ink bg-cherry text-[10px] font-extrabold">{badge}</span>
@@ -148,7 +160,7 @@ function Notifications() {
       >
         {(close) => (
           <div>
-            <div className="flex items-center justify-between border-b-2 border-ink bg-sun px-4 py-2.5">
+            <div className="flex items-center justify-between border-b-2 border-ink bg-accent px-4 py-2.5">
               <span className="font-display font-extrabold">Notifications</span>
               {unreadNotes > 0 && (
                 <button onClick={markAllRead} className="text-xs font-bold underline">
@@ -177,9 +189,9 @@ function Notifications() {
                   onClick={() => {
                     markRead(n.id)
                     close()
-                    if (n.href) navigate(n.href)
+                    if (n.href) navigate(n.href, crossesMode(pathname, n.href) ? modeTransition : undefined)
                   }}
-                  className={cn('flex w-full gap-3 border-b-2 border-ink/10 px-4 py-3 text-left last:border-0 hover:bg-sun/25', !n.read && 'bg-sky/15')}
+                  className={cn('flex w-full gap-3 border-b-2 border-ink/10 px-4 py-3 text-left last:border-0 hover:bg-accent/25', !n.read && 'bg-sky/15')}
                 >
                   <span className="text-xl leading-none">{n.emoji}</span>
                   <span className="min-w-0 flex-1">
@@ -204,6 +216,8 @@ function ProfileMenu() {
   const plan = useDemo((s) => s.plan)
   const reset = useDemo((s) => s.resetDemo)
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const go = (to: string) => navigate(to, crossesMode(pathname, to) ? modeTransition : undefined)
   return (
     <Menu
       trigger={() => (
@@ -220,15 +234,15 @@ function ProfileMenu() {
               <div className="truncate font-bold">{me.name}</div>
               <div className="truncate text-xs text-ink/60">{me.email}</div>
             </div>
-            <span className="ml-auto rounded-full border-2 border-ink bg-sun px-2 text-[11px] font-extrabold uppercase">{plan}</span>
+            <span className="ml-auto rounded-full border-2 border-ink bg-accent px-2 text-[11px] font-extrabold uppercase">{plan}</span>
           </div>
-          <MenuItem emoji="⚙️" onClick={() => (close(), navigate('/account'))}>
+          <MenuItem emoji="⚙️" onClick={() => (close(), go('/account'))}>
             Account & plan
           </MenuItem>
-          <MenuItem emoji="💾" onClick={() => (close(), navigate('/data'))}>
+          <MenuItem emoji="💾" onClick={() => (close(), go('/data'))}>
             Data & backups
           </MenuItem>
-          <MenuItem emoji="📣" onClick={() => (close(), navigate('/'))}>
+          <MenuItem emoji="📣" onClick={() => (close(), go('/'))}>
             About Cubby (landing page)
           </MenuItem>
           <MenuDivider />
@@ -242,8 +256,7 @@ function ProfileMenu() {
 }
 
 export function Navbar() {
-  const { pathname } = useLocation()
-  const workshop = pathname.startsWith('/workshop')
+  const { workshop } = useMode()
 
   const userLinks = [
     { to: '/home', label: 'Home' },
@@ -272,17 +285,18 @@ export function Navbar() {
   ))
 
   return (
-    <header className={cn('sticky top-0 z-40 border-b-[3px] border-ink', workshop ? 'bg-[#efe6ff]' : 'bg-cream/95')}>
+    <header className="sticky top-0 z-40 border-b-[3px] border-ink bg-surface/95">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4">
+        {workshop && <ModeJump to="/home" dir="left" />}
         <Link to={workshop ? '/workshop' : '/home'} className="shrink-0">
           <Logo withText={false} size={36} className="sm:hidden" />
           <Logo className="hidden sm:inline-flex" />
         </Link>
-        <ModeSwitch workshop={workshop} />
         <nav className="ml-2 hidden items-center gap-1 lg:flex">{navItems}</nav>
         <div className="ml-auto flex items-center gap-2.5">
           <Notifications />
           <ProfileMenu />
+          {!workshop && <ModeJump to="/workshop" dir="right" />}
         </div>
       </div>
       <nav className="scrollbar-none flex gap-1 overflow-x-auto border-t-2 border-ink/15 px-3 py-1.5 lg:hidden">{navItems}</nav>

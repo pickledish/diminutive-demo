@@ -45,7 +45,7 @@ function MigrationCard({ m, appId, index }: { m: Migration; appId: string; index
           <SafetyBadges m={m} />
           <span className="ml-auto text-xs font-bold text-ink/50">{formatDate(m.createdAt)}</span>
         </div>
-        <div className="mt-3 rounded-xl border-2 border-dashed border-ink/25 bg-paper px-3 py-2 text-sm">
+        <div className="mt-3 rounded-xl border-2 border-dashed border-ink/25 bg-surface-2 px-3 py-2 text-sm">
           <div className="mb-0.5 text-[11px] font-extrabold tracking-wide text-ink/45 uppercase">Users were told</div>
           {m.summary.map((s) => (
             <div key={s}>• {s}</div>

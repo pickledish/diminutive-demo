@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import { startModeSwitch } from '@/lib/mode'
 import { Check, UploadCloud } from 'lucide-react'
 import type { Channel } from '@/types'
 import { useDemo } from '@/store'
@@ -11,6 +12,7 @@ import { Badge, Button, Callout, Input, Label, Segmented, Textarea } from '../ui
 const FAKE_FILES = ['index.html', 'assets/index-8f2a1c.js', 'assets/index-3be0.css', 'assets/goblin.svg', 'manifest.webmanifest', 'cubby.json']
 
 export function DeployModal({ appId, open, onClose, preselect }: { appId: string; open: boolean; onClose: () => void; preselect?: string[] }) {
+  const navigate = useNavigate()
   const app = useDemo((s) => s.apps[appId])
   const dev = useDemo((s) => s.devApps[appId])
   const installedByMe = useDemo((s) => !!s.installs[appId])
@@ -88,7 +90,7 @@ export function DeployModal({ appId, open, onClose, preselect }: { appId: string
             onClick={() => setUploaded(true)}
             className={cn(
               'flex flex-col items-center gap-2 rounded-2xl border-[3px] border-dashed p-6 text-center transition-colors',
-              uploaded ? 'border-ink bg-mint/30' : 'border-ink/35 bg-white hover:border-ink hover:bg-sun/20',
+              uploaded ? 'border-ink bg-mint/30' : 'border-ink/35 bg-white hover:border-ink hover:bg-accent/20',
             )}
           >
             {uploaded ? (
@@ -193,7 +195,7 @@ export function DeployModal({ appId, open, onClose, preselect }: { appId: string
       {phase !== 'form' && (
         <div className="flex flex-col gap-3">
           {steps.map((s, i) => (
-            <div key={s} className={cn('flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition-all', i < progress ? 'border-ink bg-mint/40' : i === progress ? 'border-ink bg-sun/40' : 'border-ink/15 bg-white text-ink/40')}>
+            <div key={s} className={cn('flex items-center gap-3 rounded-xl border-2 px-4 py-3 transition-all', i < progress ? 'border-ink bg-mint/40' : i === progress ? 'border-ink bg-accent/40' : 'border-ink/15 bg-white text-ink/40')}>
               <span className={cn('flex size-6 items-center justify-center rounded-full border-2 border-ink text-xs', i < progress ? 'bg-mint' : 'bg-white')}>
                 {i < progress ? <Check size={14} strokeWidth={4} /> : i === progress ? <span className="size-2 animate-ping rounded-full bg-ink" /> : ''}
               </span>
@@ -201,7 +203,7 @@ export function DeployModal({ appId, open, onClose, preselect }: { appId: string
             </div>
           ))}
           {phase === 'done' && (
-            <div className="mt-2 animate-pop rounded-2xl border-[3px] border-ink bg-sun p-5">
+            <div className="mt-2 animate-pop rounded-2xl border-[3px] border-ink bg-accent p-5">
               <div className="font-display text-2xl font-extrabold">
                 v{version} is {channel === 'live' ? 'live' : channel === 'beta' ? 'out to beta testers' : 'ready to preview'} 🎉
               </div>
@@ -215,7 +217,14 @@ export function DeployModal({ appId, open, onClose, preselect }: { appId: string
                 {installedByMe && channel === 'live' && (
                   <li>
                     👀 You have {app.name} installed too.{' '}
-                    <Link to="/home" onClick={onClose} className="font-bold underline">
+                    <Link
+                      to="/home"
+                      onClick={(e) => {
+                        onClose()
+                        startModeSwitch(e, navigate, '/home')
+                      }}
+                      className="font-bold underline"
+                    >
                       Hop over to My Cubby
                     </Link>{' '}
                     to see it arrive {chosen.length ? '(and approve it)' : ''}.

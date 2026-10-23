@@ -47,7 +47,7 @@ export function NewApp() {
       <div className="mb-8 flex items-center gap-2">
         {steps.map((s, i) => (
           <div key={s} className="flex flex-1 items-center gap-2">
-            <div className={cn('flex size-9 shrink-0 items-center justify-center rounded-full border-[3px] border-ink font-display font-extrabold', i < step ? 'bg-mint' : i === step ? 'bg-sun shadow-brut-xs' : 'bg-white')}>
+            <div className={cn('flex size-9 shrink-0 items-center justify-center rounded-full border-[3px] border-ink font-display font-extrabold', i < step ? 'bg-mint' : i === step ? 'bg-accent shadow-brut-xs' : 'bg-white')}>
               {i < step ? <Check size={16} strokeWidth={4} /> : i + 1}
             </div>
             <span className={cn('hidden text-sm font-bold sm:block', i !== step && 'text-ink/50')}>{s}</span>
@@ -133,7 +133,7 @@ export function NewApp() {
               })}
             </div>
           </div>
-          <Callout emoji="🎁" tone="sun">
+          <Callout emoji="🎁" tone="accent">
             <b>Included with every app:</b> login, one personal space per install, more spaces whenever a user wants them, realtime sync, backups, hosting, and migrations. You don’t configure any of it.
           </Callout>
           <div className="flex justify-between">

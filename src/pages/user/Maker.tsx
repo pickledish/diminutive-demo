@@ -1,4 +1,5 @@
-import { Link, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
+import { startModeSwitch } from '@/lib/mode'
 import { ArrowLeft } from 'lucide-react'
 import { useDemo } from '@/store'
 import { bg } from '@/lib/colors'
@@ -9,6 +10,7 @@ import { LinkButton, Stat, Sticker } from '@/components/ui/primitives'
 import { NotFound } from '../NotFound'
 
 export function Maker() {
+  const navigate = useNavigate()
   const { handle } = useParams()
   const dev = useDemo((s) => Object.values(s.developers).find((d) => d.handle === handle))
   const apps = useDemo((s) => s.apps)
@@ -37,7 +39,7 @@ export function Maker() {
           <div className="mt-2 text-sm font-bold text-ink/60">Making things on Cubby since {formatDate(dev.joinedAt, { month: 'long', year: 'numeric' })}</div>
         </div>
         {dev.isMe && (
-          <LinkButton to="/workshop" variant="white">
+          <LinkButton to="/workshop" variant="white" onClick={(e) => startModeSwitch(e, navigate, '/workshop')}>
             🛠️ Open your Workshop
           </LinkButton>
         )}

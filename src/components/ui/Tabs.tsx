@@ -21,7 +21,7 @@ export function Tabs({ tabs, className }: { tabs: TabDef[]; className?: string }
           className={({ isActive }) =>
             cn(
               'inline-flex shrink-0 items-center gap-1.5 rounded-xl border-2 px-3.5 py-1.5 text-sm font-bold transition-all',
-              isActive ? 'border-ink bg-sun shadow-brut-sm' : 'border-transparent text-ink/70 hover:border-ink/20 hover:bg-white',
+              isActive ? 'border-ink bg-accent shadow-brut-sm' : 'border-transparent text-ink/70 hover:border-ink/20 hover:bg-white',
             )
           }
         >

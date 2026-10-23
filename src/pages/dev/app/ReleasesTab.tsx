@@ -217,7 +217,7 @@ export function ReleasesTab({ appId, onDeploy }: { appId: string; onDeploy: () =
             <>
               <p>Installs on newer versions switch back to v{confirm.release.version}’s frontend right away. Pending updates are withdrawn.</p>
               {crossedMigrations(confirm.release).length > 0 && (
-                <p className="rounded-lg border-2 border-ink bg-sun/50 p-2 text-sm">
+                <p className="rounded-lg border-2 border-ink bg-accent/50 p-2 text-sm">
                   ⚠️ Rolling back the frontend <b>doesn’t undo data changes</b> ({crossedMigrations(confirm.release).map(migName).join(', ')}). Make sure v{confirm.release.version} copes with the newer data shape. Additive changes are usually fine.
                 </p>
               )}
