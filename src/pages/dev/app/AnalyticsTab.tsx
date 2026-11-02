@@ -3,7 +3,7 @@ import { useDemo } from '@/store'
 import { getAnalytics, kAnon } from '@/lib/analytics'
 import { formatKb } from '@/lib/utils'
 import { BarChart, HBar, StackedBar } from '@/components/ui/Charts'
-import { Callout, Card, CardHeader, EmptyState, Segmented, Stat } from '@/components/ui/primitives'
+import { TabIntro, Card, CardHeader, EmptyState, Segmented, Stat } from '@/components/ui/primitives'
 
 const RANGES = [
   { value: '7', label: '7 days' },
@@ -31,12 +31,9 @@ export function AnalyticsTab({ appId }: { appId: string }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <Callout emoji="🙈" tone="mint" className="max-w-2xl flex-1">
-          <b>Counts, not people.</b> Everything here is aggregated across installs by Cubby. You can’t see who anyone is, and any number based on fewer than 10 installs shows as “&lt;10”.
-        </Callout>
-        <Segmented value={range} onChange={setRange} options={[...RANGES]} />
-      </div>
+      <TabIntro action={<Segmented value={range} onChange={setRange} options={[...RANGES]} />}>
+        Counts, not people. Anything based on fewer than 10 installs shows as “&lt;10”.
+      </TabIntro>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="New installs" value={`+${kAnon(a.totals.newInRange)}`} emoji="🌱" tone="mint" sub={`in the last ${range} days`} />

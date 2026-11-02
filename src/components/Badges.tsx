@@ -5,7 +5,7 @@ import { ROLES } from '@/data/constants'
 export function SealedBadge({ app, long }: { app: Pick<AppListing, 'network'>; long?: boolean }) {
   if (!app.network.length)
     return (
-      <Badge tone="mint" title="This app can't talk to the internet. Your data can't leave Cubby.">
+      <Badge tone="mint" title="This app can't talk to the internet. Your data can't leave Diminutive.">
         🔒 {long ? 'Sealed: no internet access' : 'Sealed'}
       </Badge>
     )

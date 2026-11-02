@@ -61,8 +61,8 @@ export function Runner() {
     const me = people[meId]
     const tables = Object.entries(space.tables)
     const lines: Omit<LogLine, 'id'>[] = [
-      { call: 'cubby.auth.user()', result: `${me.name} ${me.emoji}` },
-      { call: 'cubby.spaces.current()', result: `“${space.name}” · ${space.members.length} ${space.members.length === 1 ? 'person' : 'people'} · you’re ${myRole(space, meId)}` },
+      { call: 'diminutive.auth.user()', result: `${me.name} ${me.emoji}` },
+      { call: 'diminutive.spaces.current()', result: `“${space.name}” · ${space.members.length} ${space.members.length === 1 ? 'person' : 'people'} · you’re ${myRole(space, meId)}` },
       ...tables.map(([t, rows]) => ({ call: `db.from('${t}').select()`, result: `${rows.length} rows` })),
       { call: `db.from('${tables[0]?.[0] ?? 'items'}').subscribe()`, result: 'listening for changes…', tone: 'live' as const },
       app.network.length
@@ -175,7 +175,7 @@ export function Runner() {
                 <span className="size-3 rounded-full border-2 border-ink bg-mint" />
               </div>
               <div className="flex flex-1 items-center gap-2 rounded-lg border-2 border-ink bg-white px-3 py-1 font-mono text-xs">
-                <Lock size={12} strokeWidth={3} /> https://{app.id}.cubby.app
+                <Lock size={12} strokeWidth={3} /> https://{app.id}.diminutive.app
               </div>
               <RotateCw size={16} className="text-ink/40" />
             </div>
@@ -190,8 +190,8 @@ export function Runner() {
                     Demo
                   </Sticker>
                   <p className="text-sm leading-snug">
-                    <b>This is where {app.name} would run.</b> It’s {app.developerId === 'dev_robin' ? 'your' : 'the maker’s'} static bundle, served from Cubby. The SDK
-                    logs you in and hands it a database scoped to <b>{space?.emoji} {space?.name}</b>. Everything it saves stays in {owner ? 'your' : `${people[space?.ownerId ?? '']?.name.split(' ')[0]}’s`} cubby.
+                    <b>This is where {app.name} would run.</b> It’s {app.developerId === 'dev_robin' ? 'your' : 'the maker’s'} static bundle, served from Diminutive. The SDK
+                    logs you in and hands it a database scoped to <b>{space?.emoji} {space?.name}</b>. Everything it saves stays in {owner ? 'your' : `${people[space?.ownerId ?? '']?.name.split(' ')[0]}’s`} account.
                   </p>
                 </div>
               </div>
@@ -202,7 +202,7 @@ export function Runner() {
         <aside className="flex w-full flex-col gap-4 lg:w-[380px]">
           <div className="brut overflow-hidden rounded-2xl bg-ink text-paper">
             <div className="flex items-center justify-between border-b-2 border-paper/15 px-4 py-2.5">
-              <span className="font-display font-extrabold">What the app is asking Cubby</span>
+              <span className="font-display font-extrabold">What the app is asking Diminutive</span>
               <span className="flex items-center gap-1.5 text-xs font-bold text-mint">
                 <span className="size-2 animate-pulse rounded-full bg-mint" /> live
               </span>

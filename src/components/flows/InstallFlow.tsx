@@ -35,8 +35,8 @@ export function PermissionList({ app, compact }: { app: AppListing; compact?: bo
           {!compact && (
             <div className="text-sm text-ink/65">
               {app.network.length
-                ? 'Only these sites. Cubby blocks everything else, so your data can’t be quietly sent anywhere.'
-                : 'Sealed: it can’t talk to any website. Your data physically can’t leave Cubby through it.'}
+                ? 'Only these sites. Diminutive blocks everything else, so your data can’t be quietly sent anywhere.'
+                : 'Sealed: it can’t talk to any website. Your data physically can’t leave Diminutive through it.'}
             </div>
           )}
         </div>

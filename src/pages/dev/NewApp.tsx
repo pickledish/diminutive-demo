@@ -62,7 +62,7 @@ export function NewApp() {
             <div>
               <Label>What’s it called?</Label>
               <Input autoFocus className="h-12 text-lg" placeholder="Taco Tuesday Tracker" value={name} onChange={(e) => setName(e.target.value)} maxLength={32} />
-              <div className="mt-1.5 font-mono text-xs text-ink/50">https://{slug}.cubby.app</div>
+              <div className="mt-1.5 font-mono text-xs text-ink/50">https://{slug}.diminutive.app</div>
             </div>
             <div>
               <Label>One-line pitch</Label>
@@ -171,7 +171,7 @@ export function NewApp() {
             </div>
             <div className="flex flex-col gap-3">
               <h3 className="text-xl font-extrabold">…or hand it to your AI agent 🤖</h3>
-              <p className="text-ink/70">Paste this into Cursor, Claude, ChatGPT or whatever you build with. It explains how Cubby apps work, so the robot doesn’t try to spin up a server.</p>
+              <p className="text-ink/70">Paste this into Cursor, Claude, ChatGPT or whatever you build with. It explains how Diminutive apps work, so the robot doesn’t try to spin up a server.</p>
               <CodeBlock lang="text" code={aiPrompt(createdId, name)} title="prompt.md" wrap />
             </div>
           </div>

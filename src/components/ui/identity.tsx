@@ -107,7 +107,7 @@ export function Logo({ className, withText = true, size = 34 }: { className?: st
         <circle cx="26.5" cy="36" r="2.2" fill="#141414" />
         <circle cx="39.5" cy="36" r="2.2" fill="#141414" />
       </svg>
-      {withText && <span className="font-display text-2xl font-extrabold tracking-tight">cubby</span>}
+      {withText && <span className="font-display text-2xl font-extrabold tracking-tight">diminutive</span>}
     </span>
   )
 }

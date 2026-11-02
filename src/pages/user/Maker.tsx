@@ -36,7 +36,7 @@ export function Maker() {
           <h1 className="text-5xl font-extrabold">{dev.name}</h1>
           <div className="mt-1 font-mono font-bold text-ink/65">@{dev.handle}</div>
           <p className="mt-3 max-w-xl text-lg">{dev.bio}</p>
-          <div className="mt-2 text-sm font-bold text-ink/60">Making things on Cubby since {formatDate(dev.joinedAt, { month: 'long', year: 'numeric' })}</div>
+          <div className="mt-2 text-sm font-bold text-ink/60">Making things on Diminutive since {formatDate(dev.joinedAt, { month: 'long', year: 'numeric' })}</div>
         </div>
         {dev.isMe && (
           <LinkButton to="/workshop" variant="white" onClick={(e) => startModeSwitch(e, navigate, '/workshop')}>

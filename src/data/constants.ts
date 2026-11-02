@@ -17,8 +17,8 @@ export const categoryEmoji = (c: Category) => CATEGORIES.find((x) => x.id === c)
 export const PERMISSIONS: Record<PermissionKey, { emoji: string; label: string; detail: string; optional?: boolean }> = {
   storage: {
     emoji: '🗄️',
-    label: 'Keep data in your cubby',
-    detail: 'The app can save and read its own data, only inside your cubby, only while you use it.',
+    label: 'Keep data in your account',
+    detail: 'The app can save and read its own data, only inside your account, only while you use it.',
   },
   spaces: {
     emoji: '👥',
@@ -33,18 +33,18 @@ export const PERMISSIONS: Record<PermissionKey, { emoji: string; label: string; 
   notifications: {
     emoji: '🔔',
     label: 'Send you nudges',
-    detail: 'Reminders and pings, routed through Cubby. Turn them off anytime.',
+    detail: 'Reminders and pings, routed through Diminutive. Turn them off anytime.',
     optional: true,
   },
   files: {
     emoji: '🖼️',
     label: 'Photos & files',
-    detail: 'Attachments you add are stored in your cubby and count toward your storage.',
+    detail: 'Attachments you add are stored in your account and count toward your storage.',
   },
   location: {
     emoji: '📍',
     label: 'Your location (when asked)',
-    detail: 'Your browser will ask first, every time. Coordinates stay in your cubby.',
+    detail: 'Your browser will ask first, every time. Coordinates stay in your account.',
     optional: true,
   },
   camera: {

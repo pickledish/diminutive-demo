@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import type { ActivityKind } from '@/types'
 import { useDemo } from '@/store'
 import { ActivityList } from '@/components/ActivityList'
-import { Callout, Card, EmptyState, Segmented } from '@/components/ui/primitives'
+import { TabIntro, Card, EmptyState, Segmented } from '@/components/ui/primitives'
 
 type Filter = 'all' | 'access' | 'sharing' | 'changes'
 
@@ -24,9 +24,7 @@ export function ActivityTab({ appId }: { appId: string }) {
 
   return (
     <div className="flex flex-col gap-5">
-      <Callout emoji="📜" tone="white">
-        Cubby logs every time {app.name} reads or changes your data, and every change to who can see it. This log is yours too: the maker can’t see it.
-      </Callout>
+      <TabIntro>Every time {app.name} reads or changes your data, or who can see it. The maker can’t see this log.</TabIntro>
       <Segmented
         value={filter}
         onChange={setFilter}

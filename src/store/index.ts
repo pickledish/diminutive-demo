@@ -108,7 +108,7 @@ const notify = (s: Draft, n: { emoji: string; title: string; body?: string; href
   s.notifications.unshift({ id: uid('ntf'), at: now(), read: false, ...n })
 }
 
-const appName = (s: Draft, appId?: string) => (appId ? (s.apps[appId]?.name ?? 'App') : 'Cubby')
+const appName = (s: Draft, appId?: string) => (appId ? (s.apps[appId]?.name ?? 'App') : 'Diminutive')
 
 function emptyTables(app: AppListing): Tables {
   return Object.fromEntries(app.schema.map((t) => [t.name, []]))
@@ -166,12 +166,12 @@ function deliverToMe(s: Draft, appId: string, release: Release) {
       releasedAt: now(),
     }
     if (migs.length) {
-      pushActivity(s, { kind: 'update', appId, text: `${app.name} ${release.version} is waiting for your OK (it changes your data)`, who: 'cubby' })
+      pushActivity(s, { kind: 'update', appId, text: `${app.name} ${release.version} is waiting for your OK (it changes your data)`, who: 'diminutive' })
     }
   } else if (inst.autoUpdate) {
     inst.version = release.version
     inst.updatedAt = now()
-    pushActivity(s, { kind: 'update', appId, text: `${app.name} updated to ${release.version} automatically (no data changes)`, who: 'cubby' })
+    pushActivity(s, { kind: 'update', appId, text: `${app.name} updated to ${release.version} automatically (no data changes)`, who: 'diminutive' })
     notify(s, { emoji: app.emoji, title: `${app.name} updated to ${release.version}`, body: release.notes, href: `/my/${appId}` })
   } else {
     s.pendingUpdates[appId] = {
@@ -344,7 +344,7 @@ export const useDemo = create<DemoState>()(
               note: `Before updating to ${upd.toVersion}`,
               snapshot: snapshotFor(s, appId),
             })
-            pushActivity(s, { kind: 'backup', appId, text: `Backed up ${app.name} before updating to ${upd.toVersion}`, who: 'cubby' })
+            pushActivity(s, { kind: 'backup', appId, text: `Backed up ${app.name} before updating to ${upd.toVersion}`, who: 'diminutive' })
           }
           inst.schema = applyOpsToSchema(inst.schema, upd.ops)
           for (const sid of inst.spaceIds) {
@@ -359,7 +359,7 @@ export const useDemo = create<DemoState>()(
               kind: 'schema',
               appId,
               text: `${app.name} ${upd.toVersion} changed your data: ${upd.dataSummary.map((x) => x.split('.')[0].toLowerCase()).join('; ')}`,
-              who: 'cubby',
+              who: 'diminutive',
             })
           }
           pushActivity(s, { kind: 'update', appId, text: `You updated ${app.name} to ${upd.toVersion}`, who: s.meId })
@@ -838,7 +838,7 @@ export const useDemo = create<DemoState>()(
           if (inst && compareVersions(inst.version, target.version) > 0) {
             inst.version = target.version
             inst.updatedAt = now()
-            pushActivity(s, { kind: 'update', appId, text: `${app.name} was rolled back to ${target.version} by its developer. Your data wasn’t touched.`, who: 'cubby' })
+            pushActivity(s, { kind: 'update', appId, text: `${app.name} was rolled back to ${target.version} by its developer. Your data wasn’t touched.`, who: 'diminutive' })
           }
         }),
 
@@ -903,7 +903,7 @@ export const useDemo = create<DemoState>()(
         }),
     })),
     {
-      name: 'cubby-demo',
+      name: 'diminutive-demo',
       version: SEED_VERSION,
       migrate: () => createSeed() as unknown as DemoState,
     },

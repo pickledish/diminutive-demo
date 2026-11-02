@@ -92,7 +92,7 @@ export function Workshop() {
       <PageHeader
         emoji="🛠️"
         title="Your Workshop"
-        subtitle="Ship apps to real people. Cubby handles login, data, sharing and backups, and you never touch anyone’s data."
+        subtitle="Ship apps to real people. Diminutive handles login, data, sharing and backups, and you never touch anyone’s data."
         action={
           <>
             <LinkButton to="/workshop/docs" variant="white">
@@ -108,7 +108,7 @@ export function Workshop() {
       <div className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <Stat label="Total installs" value={compact(installs)} emoji="🏠" tone="accent" sub="across your published apps" />
         <Stat label="Active this week" value={compact(active)} emoji="⚡" sub="opened at least once" />
-        <Stat label="Tips received" value={money(tips)} emoji="💛" tone="pink" sub="100% yours, Cubby takes 0%" />
+        <Stat label="Tips received" value={money(tips)} emoji="💛" tone="pink" sub="100% yours, Diminutive takes 0%" />
         <Stat label="Average rating" value={avg ? avg.toFixed(1) : '—'} emoji="⭐" tone="mint" sub={<Stars value={avg} size={11} />} />
       </div>
 
@@ -152,9 +152,9 @@ export function Workshop() {
             <div className="mb-2 font-display text-lg font-extrabold">Ship from your terminal</div>
             <CodeBlock
               lang="sh"
-              code={`npx cubby login
-npx cubby deploy        # uploads dist/ + migrations/
-npx cubby deploy --beta # ship to beta testers first`}
+              code={`npx diminutive login
+npx diminutive deploy        # uploads dist/ + migrations/
+npx diminutive deploy --beta # ship to beta testers first`}
             />
           </div>
         </aside>

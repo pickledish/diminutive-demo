@@ -415,7 +415,7 @@ function seedActivity(): ActivityEvent[] {
     e(minutesAgo(20), 'write', 'Theo added 1 row to items', 'grocery-goblin', 'sp_gg_house', 'usr_theo'),
     e(hoursAgo(1), 'write', 'Jess added 1 row to items', 'grocery-goblin', 'sp_gg_house', 'usr_jess'),
     e(hoursAgo(2), 'read', 'Grocery Goblin read 22 rows while you were using it', 'grocery-goblin', 'sp_gg_house', ME_ID),
-    e(hoursAgo(3), 'backup', 'Daily backup finished: everything, 25.3 MB', undefined, undefined, 'cubby'),
+    e(hoursAgo(3), 'backup', 'Daily backup finished: everything, 25.3 MB', undefined, undefined, 'diminutive'),
     e(hoursAgo(5), 'sharing', 'Priya invited you to “Office Plant Squad”', 'plant-pal', undefined, 'usr_priya'),
     e(hoursAgo(9), 'write', 'You added 2 rows to checkins', 'habit-hatch', 'sp_hh_me', ME_ID),
     e(daysAgo(1), 'sharing', 'Lou invited you to “Lou’s 40th Potluck”', 'potluck-planner', undefined, 'usr_lou'),
@@ -423,19 +423,19 @@ function seedActivity(): ActivityEvent[] {
     e(daysAgo(1), 'read', 'Plant Pal read 13 rows while you were using it', 'plant-pal', 'sp_pp_me', ME_ID),
     e(daysAgo(2), 'sharing', 'You invited ray.park@gmail.com to “Park House” as a viewer', 'grocery-goblin', 'sp_gg_house', ME_ID),
     e(daysAgo(3), 'write', 'Maya added 1 row to settlements', 'splitsies', 'sp_split_lake', 'usr_maya'),
-    e(daysAgo(4), 'update', 'Dragon Notes updated to 2.2.0 automatically (no data changes)', 'dragon-notes', undefined, 'cubby'),
+    e(daysAgo(4), 'update', 'Dragon Notes updated to 2.2.0 automatically (no data changes)', 'dragon-notes', undefined, 'diminutive'),
     e(daysAgo(5), 'write', 'Jess created a list: 1 row in lists', 'grocery-goblin', 'sp_gg_house', 'usr_jess'),
-    e(daysAgo(6), 'update', 'Grocery Goblin 2.4.0 is waiting for your OK (it changes your data)', 'grocery-goblin', undefined, 'cubby'),
+    e(daysAgo(6), 'update', 'Grocery Goblin 2.4.0 is waiting for your OK (it changes your data)', 'grocery-goblin', undefined, 'diminutive'),
     e(daysAgo(7), 'write', 'Kenji added 1 row to sessions', 'dragon-notes', 'sp_dn_owls', 'usr_kenji'),
     e(daysAgo(9), 'backup', 'You made a backup: “Before Thanksgiving chaos 🦃”', 'grocery-goblin', undefined, ME_ID),
     e(daysAgo(12), 'export', 'You exported expenses as CSV', 'splitsies', 'sp_split_lake', ME_ID),
-    e(daysAgo(19), 'schema', 'Habit Hatch 4.0.0 changed your data: adds “level” and “xp” to your creature', 'habit-hatch', 'sp_hh_me', 'cubby'),
-    e(daysAgo(19), 'backup', 'Backed up Habit Hatch before updating to 4.0.0', 'habit-hatch', undefined, 'cubby'),
-    e(daysAgo(20), 'update', 'Grocery Goblin updated to 2.3.1 automatically (no data changes)', 'grocery-goblin', undefined, 'cubby'),
+    e(daysAgo(19), 'schema', 'Habit Hatch 4.0.0 changed your data: adds “level” and “xp” to your creature', 'habit-hatch', 'sp_hh_me', 'diminutive'),
+    e(daysAgo(19), 'backup', 'Backed up Habit Hatch before updating to 4.0.0', 'habit-hatch', undefined, 'diminutive'),
+    e(daysAgo(20), 'update', 'Grocery Goblin updated to 2.3.1 automatically (no data changes)', 'grocery-goblin', undefined, 'diminutive'),
     e(daysAgo(30), 'sharing', 'You let Grandma June into “Park House” as a viewer', 'grocery-goblin', 'sp_gg_house', ME_ID),
     e(daysAgo(30), 'sharing', 'Sam added you to “Lake Trip 2026”', 'splitsies', 'sp_split_lake', 'usr_sam'),
     e(daysAgo(30), 'install', 'You installed Splitsies', 'splitsies', undefined, ME_ID),
-    e(daysAgo(34), 'schema', 'Grocery Goblin 2.3.0 changed your data: adds an “archived” flag to lists', 'grocery-goblin', 'sp_gg_house', 'cubby'),
+    e(daysAgo(34), 'schema', 'Grocery Goblin 2.3.0 changed your data: adds an “archived” flag to lists', 'grocery-goblin', 'sp_gg_house', 'diminutive'),
     e(daysAgo(64), 'install', 'You installed Plant Pal', 'plant-pal', undefined, ME_ID),
   ]
 }
@@ -509,9 +509,9 @@ create table items (
     createdAt: daysAgo(120),
     releaseVersion: '2.0.0',
     sql: `-- who added what (for shared spaces)
-alter table items add column added_by cubby_user;
+alter table items add column added_by diminutive_user;
 alter table items add column added_at timestamp default now();
-alter table lists add column created_by cubby_user;`,
+alter table lists add column created_by diminutive_user;`,
     summary: ['Remembers who added each item, so shared lists make sense'],
     destructive: false,
     reversible: true,
@@ -603,7 +603,7 @@ function seedDevApps(apps: Record<string, AppListing>): Record<string, DevApp> {
               code: 'STATEMENT_TIMEOUT',
               message: 'canceling statement due to statement timeout (update items …)',
               count: 11,
-              resolution: 'Rolled back safely. Cubby will retry overnight with a longer timeout.',
+              resolution: 'Rolled back safely. Diminutive will retry overnight with a longer timeout.',
             },
             {
               code: 'QUOTA_EXCEEDED',
@@ -632,7 +632,7 @@ function seedDevApps(apps: Record<string, AppListing>): Record<string, DevApp> {
 create table spins (
   id uuid primary key,
   chore_id uuid references chores,
-  assigned_to cubby_user,
+  assigned_to diminutive_user,
   spun_at timestamp default now(),
   done bool default false
 );`,
@@ -730,7 +730,7 @@ create table plays (
   id uuid primary key,
   game_id uuid references games,
   played_on date,
-  winner cubby_user
+  winner diminutive_user
 );`,
           summary: ['Sets up games and plays'],
           destructive: false,

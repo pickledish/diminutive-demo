@@ -10,11 +10,11 @@ const KEYWORDS: Record<Lang, string[]> = {
     'create', 'table', 'primary', 'key', 'not', 'null', 'default', 'references', 'alter', 'add', 'column', 'drop', 'index', 'on', 'update', 'set', 'where',
     'and', 'or', 'is', 'any', 'array', 'ilike', 'unique', 'rename', 'to', 'if', 'exists', 'delete', 'insert', 'into', 'values',
   ],
-  sh: ['npx', 'npm', 'cubby'],
+  sh: ['npx', 'npm', 'diminutive'],
   text: [],
 }
 
-const TYPES = ['uuid', 'text', 'int', 'bool', 'timestamp', 'date', 'real', 'json', 'jsonb', 'cubby_user', 'integer', 'boolean']
+const TYPES = ['uuid', 'text', 'int', 'bool', 'timestamp', 'date', 'real', 'json', 'jsonb', 'diminutive_user', 'integer', 'boolean']
 
 function highlight(code: string, lang: Lang): ReactNode[] {
   if (lang === 'text') return [code]

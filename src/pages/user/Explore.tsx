@@ -101,7 +101,7 @@ export function Explore() {
 
   return (
     <div>
-      <PageHeader emoji="🔭" title="Explore" subtitle="Apps made by people, for their people. Every one of them keeps your data in your cubby." />
+      <PageHeader emoji="🔭" title="Explore" subtitle="Apps made by people, for their people. Every one of them keeps your data in your account." />
 
       <div className="mb-8 flex flex-col gap-4">
         <div className="flex flex-wrap gap-3">
@@ -166,7 +166,7 @@ export function Explore() {
             </div>
           ) : (
             <EmptyState emoji="🕳️" title="No apps match… yet" action={<LinkButton to="/workshop/new" variant="grape" onClick={(e) => startModeSwitch(e, navigate, '/workshop/new')}>🛠️ Build it yourself</LinkButton>}>
-              Nobody’s made that one. Maybe you should? With an AI agent and the Cubby SDK, it’s an afternoon project.
+              Nobody’s made that one. Maybe you should? With an AI agent and the Diminutive SDK, it’s an afternoon project.
             </EmptyState>
           )}
         </section>

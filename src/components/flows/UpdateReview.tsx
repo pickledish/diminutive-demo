@@ -97,7 +97,7 @@ export function UpdateReviewModal({ appId, open, onClose }: { appId: string; ope
                 </li>
               ))}
             </ul>
-            <div className="mt-2 text-xs font-bold text-ink/55">Written by the developer · checked by Cubby</div>
+            <div className="mt-2 text-xs font-bold text-ink/55">Written by the developer · checked by Diminutive</div>
           </div>
         ) : (
           <Callout emoji="✨" tone="mint">
@@ -109,7 +109,7 @@ export function UpdateReviewModal({ appId, open, onClose }: { appId: string; ope
           <div className="grid gap-2 sm:grid-cols-3">
             {[
               ['💾', 'Backup first', 'We snapshot your data before anything changes.'],
-              ['🧪', 'Pre-tested', 'Cubby ran this change on sample data before release.'],
+              ['🧪', 'Pre-tested', 'Diminutive ran this change on sample data before release.'],
               ['↩️', 'Auto-undo', 'If anything fails, we roll back. Your app keeps working.'],
             ].map(([e, t, d]) => (
               <div key={t} className="rounded-xl border-2 border-ink bg-white p-3">

@@ -139,7 +139,7 @@ export function lintSql(sql: string, schema: TableSchema[] = []): LintResult {
     if (/^create (unique )?index/i.test(s)) {
       checks.push({ level: 'ok', text: 'Adds an index. Faster reads, no data changes.' })
       if (/^create unique/i.test(s)) {
-        checks.push({ level: 'warn', text: 'Unique indexes fail on installs that already contain duplicates. Cubby will roll those back automatically.' })
+        checks.push({ level: 'warn', text: 'Unique indexes fail on installs that already contain duplicates. Diminutive will roll those back automatically.' })
       }
       continue
     }
@@ -157,7 +157,7 @@ export function lintSql(sql: string, schema: TableSchema[] = []): LintResult {
       continue
     }
 
-    checks.push({ level: 'warn', text: `Cubby couldn't fully understand: “${s.slice(0, 60)}${s.length > 60 ? '…' : ''}”. It'll still run, but test it with a dry run.` })
+    checks.push({ level: 'warn', text: `Diminutive couldn't fully understand: “${s.slice(0, 60)}${s.length > 60 ? '…' : ''}”. It'll still run, but test it with a dry run.` })
   }
 
   if (!statements.length) checks.push({ level: 'warn', text: 'No SQL statements yet.' })

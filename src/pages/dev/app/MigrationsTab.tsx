@@ -7,7 +7,7 @@ import { headSchema } from '@/lib/dev'
 import { formatDate } from '@/lib/utils'
 import { StackedBar } from '@/components/ui/Charts'
 import { CodeBlock } from '@/components/ui/CodeBlock'
-import { Badge, Button, Callout, Card, EmptyState } from '@/components/ui/primitives'
+import { Badge, Button, Callout, Card, EmptyState, TabIntro } from '@/components/ui/primitives'
 import { SchemaCards } from '@/components/SchemaCards'
 import { toast } from '@/components/ui/toast'
 
@@ -99,15 +99,12 @@ export function MigrationsTab({ appId, onDeploy }: { appId: string; onDeploy: ()
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h2 className="text-2xl font-extrabold">Migrations</h2>
-        <p className="mt-1 text-ink/70">
-          Migrations are SQL files you commit in your repo, and they ship inside a release. Cubby carries each one to every install with your summary, a backup, and automatic undo if anything breaks.{' '}
-          <Link to="/workshop/docs" className="font-bold underline">
-            How it works
-          </Link>
-        </p>
-      </div>
+      <TabIntro>
+        SQL files in your repo that ship with a release. Every install gets a backup and automatic undo.{' '}
+        <Link to="/workshop/docs" className="font-bold underline">
+          How it works
+        </Link>
+      </TabIntro>
 
       {unreleased.length > 0 && (
         <Card className="overflow-hidden border-dashed bg-grape/15">

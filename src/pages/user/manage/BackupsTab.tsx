@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import { useDemo } from '@/store'
 import { BackupRow } from '@/components/BackupList'
-import { Button, Callout, Card, CardHeader, Input } from '@/components/ui/primitives'
+import { Button, TabIntro, Card, CardHeader, Input } from '@/components/ui/primitives'
 import { Modal } from '@/components/ui/Modal'
 import { toast } from '@/components/ui/toast'
 
@@ -17,15 +17,12 @@ export function BackupsTab({ appId }: { appId: string }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center gap-4">
-        <Callout emoji="🤖" tone="white" className="flex-1">
-          Cubby backs up everything <b>{autoBackup === 'off' ? '(never: automatic backups are off!)' : autoBackup}</b>, and always right before an update changes your data.{' '}
-          <Link to="/data" className="font-bold underline">
-            Change schedule
-          </Link>
-        </Callout>
-        <Button onClick={() => setOpen(true)}>💾 Back up {app.name} now</Button>
-      </div>
+      <TabIntro action={<Button onClick={() => setOpen(true)}>💾 Back up {app.name} now</Button>}>
+        {autoBackup === 'off' ? 'Automatic backups are off, but' : <>Backed up {autoBackup}, and</>} always right before an update changes your data.{' '}
+        <Link to="/data" className="font-bold underline">
+          Change schedule
+        </Link>
+      </TabIntro>
 
       <Card>
         <CardHeader title={`Backups that include ${app.name}`} emoji="💾" subtitle="Restore any of them in one click. Backups don’t count toward your storage." />

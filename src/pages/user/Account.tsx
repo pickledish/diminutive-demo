@@ -20,7 +20,7 @@ export function Account() {
   const [deleting, setDeleting] = useState(false)
   const [sessions, setSessions] = useState([
     { id: 1, device: 'MacBook Air', where: 'Safari · this device', emoji: '💻', current: true },
-    { id: 2, device: 'iPhone 16', where: 'Cubby on your home screen · 2h ago', emoji: '📱' },
+    { id: 2, device: 'iPhone 16', where: 'Diminutive on your home screen · 2h ago', emoji: '📱' },
     { id: 3, device: 'Kitchen iPad', where: 'Chrome · 3 days ago', emoji: '📟' },
   ])
 
@@ -186,7 +186,7 @@ export function Account() {
         title="Delete your whole account?"
         confirmLabel="I understand, delete it"
         onConfirm={() => {
-          toast({ emoji: '🛟', title: 'Phew, it’s a demo', body: 'In real life your account and every cubby would be wiped within 24h. Here, nothing happened.' })
+          toast({ emoji: '🛟', title: 'Phew, it’s a demo', body: 'In real life your account and all your data would be wiped within 24h. Here, nothing happened.' })
         }}
       >
         <p>This would delete every app’s data, every space you own (other members lose access), and every backup. Spaces you’re a guest in stay with their owners.</p>

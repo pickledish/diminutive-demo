@@ -84,7 +84,7 @@ export const seedCatalog = (): Record<string, AppListing> => {
       color: 'lime',
       tagline: 'A shared grocery list that eats your forgotten items.',
       description:
-        'Grocery Goblin is a grocery list for households that actually shop together. Add something from the couch, and it pops up on your partner’s phone in the cereal aisle.\n\nThe goblin keeps track of what you buy every week and gently nags you when you forget the oat milk again. Lists can be shared with everyone in your house, and the kids can be viewers so they can see (but not add 14 bags of gummy worms).\n\nNo ads, no tracking, and it can’t talk to the internet. Your list lives in your cubby and nowhere else.',
+        'Grocery Goblin is a grocery list for households that actually shop together. Add something from the couch, and it pops up on your partner’s phone in the cereal aisle.\n\nThe goblin keeps track of what you buy every week and gently nags you when you forget the oat milk again. Lists can be shared with everyone in your house, and the kids can be viewers so they can see (but not add 14 bags of gummy worms).\n\nNo ads, no tracking, and it can’t talk to the internet. Your list lives in your account and nowhere else.',
       category: 'household',
       developerId: 'dev_robin',
       tags: ['groceries', 'lists', 'family', 'realtime'],
@@ -270,7 +270,7 @@ export const seedCatalog = (): Record<string, AppListing> => {
       color: 'sun',
       tagline: 'Grow a little creature by keeping your habits.',
       description:
-        'Check in on your habits each day and your creature grows, evolves, and occasionally wears a hat. Miss a few days and it gets… sleepy. Never sad. We’re not monsters.\n\nHabit Hatch is sealed: it can’t talk to the internet. Your check-ins live in your cubby, in a space you can keep to yourself or share.',
+        'Check in on your habits each day and your creature grows, evolves, and occasionally wears a hat. Miss a few days and it gets… sleepy. Never sad. We’re not monsters.\n\nHabit Hatch is sealed: it can’t talk to the internet. Your check-ins live in your account, in a space you can keep to yourself or share.',
       category: 'health',
       developerId: 'dev_sunday',
       tags: ['habits', 'wellbeing'],
@@ -298,7 +298,7 @@ export const seedCatalog = (): Record<string, AppListing> => {
       reviews: [
         rv('Kenji', '🐧', 5, 'My creature is named Gerald and I would die for him.', 2),
         rv('Ava', '🐰', 5, 'First habit app I’ve kept for more than 2 weeks.', 14),
-        rv('Rui', '🐳', 5, 'Sealed is exactly right for this. My check-ins stay in my cubby.', 40),
+        rv('Rui', '🐳', 5, 'Sealed is exactly right for this. My check-ins stay with me.', 40),
       ],
       tipJar: true,
       published: true,
@@ -348,7 +348,7 @@ export const seedCatalog = (): Record<string, AppListing> => {
       color: 'mint',
       tagline: 'Reminds you to water. Judges you gently.',
       description:
-        'Add your plants (with photos!), set how thirsty they are, and Plant Pal reminds you when it’s time. Share a space with your housemates so nobody double-waters the fern.\n\nPlant photos are stored in your cubby, so only you (and anyone you share a space with) can see them.',
+        'Add your plants (with photos!), set how thirsty they are, and Plant Pal reminds you when it’s time. Share a space with your housemates so nobody double-waters the fern.\n\nPlant photos are stored in your account, so only you (and anyone you share a space with) can see them.',
       category: 'hobbies',
       developerId: 'dev_moss',
       tags: ['plants', 'reminders', 'home'],
@@ -558,9 +558,9 @@ export const seedCatalog = (): Record<string, AppListing> => {
       name: 'Moodring',
       emoji: '🌈',
       color: 'grape',
-      tagline: 'A one-tap mood journal that stays in your cubby.',
+      tagline: 'A one-tap mood journal that stays private to you.',
       description:
-        'Tap a color, optionally write a sentence. Over time Moodring shows you patterns: Mondays, coffee, sleep. It’s sealed, so it can’t talk to the internet. Your moods stay in your cubby.',
+        'Tap a color, optionally write a sentence. Over time Moodring shows you patterns: Mondays, coffee, sleep. It’s sealed, so it can’t talk to the internet. Your moods stay with you.',
       category: 'health',
       developerId: 'dev_tavi',
       tags: ['journal', 'mood'],

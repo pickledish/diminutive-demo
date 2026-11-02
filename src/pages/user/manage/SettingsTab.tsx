@@ -143,7 +143,7 @@ export function SettingsTab({ appId }: { appId: string }) {
               <Toggle checked={inst.autoApproveData} onChange={(v) => setPref(appId, { autoApproveData: v })} label="Auto-approve" />
             </Row>
             {app.permissions.includes('notifications') && (
-              <Row title="Nudges from this app" sub="Reminders and pings, sent through Cubby.">
+              <Row title="Nudges from this app" sub="Reminders and pings, sent through Diminutive.">
                 <Toggle checked={inst.notificationsOn} onChange={(v) => setPref(appId, { notificationsOn: v })} label="Notifications" />
               </Row>
             )}

@@ -53,8 +53,8 @@ export function DataBackups() {
         spaces: i.spaceIds.map((id) => spaces[id]).filter(Boolean).map((sp) => ({ name: sp.name, owner: sp.ownerId === meId ? 'you' : sp.ownerId, tables: sp.tables })),
       })),
     }
-    downloadFile(`my-cubby-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(data, null, 2))
-    logActivity({ kind: 'export', text: 'You exported everything in your cubby', who: meId })
+    downloadFile(`diminutive-export-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(data, null, 2))
+    logActivity({ kind: 'export', text: 'You exported everything in your account', who: meId })
     toast({ emoji: '🧳', title: 'Everything exported', body: `${rows.length} apps, every space, every row. In one file.` })
   }
 
@@ -63,7 +63,7 @@ export function DataBackups() {
       <PageHeader
         emoji="💾"
         title="Data & backups"
-        subtitle="Everything you’ve put into Cubby, in one place. It’s yours: back it up, take it with you, or delete it."
+        subtitle="Everything you’ve put into Diminutive, in one place. It’s yours: back it up, take it with you, or delete it."
         action={
           <Button variant="white" onClick={exportEverything}>
             🧳 Export everything
@@ -73,7 +73,7 @@ export function DataBackups() {
 
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
         <Card>
-          <CardHeader title="What’s in your cubby" emoji="📦" subtitle={`${formatKb(used)} of ${formatKb(limit)} on the ${PLANS[plan].name} plan`} action={plan === 'free' && <Link to="/account" className="text-sm font-bold underline">Get more room</Link>} />
+          <CardHeader title="What’s in your account" emoji="📦" subtitle={`${formatKb(used)} of ${formatKb(limit)} on the ${PLANS[plan].name} plan`} action={plan === 'free' && <Link to="/account" className="text-sm font-bold underline">Get more room</Link>} />
           <div className="p-5">
             <Meter value={used} max={limit} className="h-6" segments={rows.map((r) => ({ value: Math.max(r.kb, limit * 0.004), className: bg[r.app.color], label: `${r.app.name}: ${formatKb(r.kb)}` }))} />
             <div className="mt-5 overflow-x-auto">
@@ -149,7 +149,7 @@ export function DataBackups() {
           <Card>
             <CardHeader title="Bring data in" emoji="📥" />
             <div className="p-5">
-              <p className="text-sm text-ink/65">Restore from a backup file you downloaded earlier, even from another Cubby account.</p>
+              <p className="text-sm text-ink/65">Restore from a backup file you downloaded earlier, even from another Diminutive account.</p>
               <input
                 ref={fileRef}
                 type="file"

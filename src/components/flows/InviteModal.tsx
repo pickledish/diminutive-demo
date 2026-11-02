@@ -16,7 +16,7 @@ export function InviteModal({ spaceId, open, onClose }: { spaceId: string; open:
   const invite = useDemo((s) => s.inviteToSpace)
   const [label, setLabel] = useState('')
   const [role, setRole] = useState<Role>('editor')
-  const [link] = useState(() => `https://cubby.app/join/${randomHex(6)}`)
+  const [link] = useState(() => `https://diminutive.app/join/${randomHex(6)}`)
 
   if (!space || !app) return null
   const inSpace = new Set(space.members.map((m) => m.personId))
@@ -86,7 +86,7 @@ export function InviteModal({ spaceId, open, onClose }: { spaceId: string; open:
           </Button>
         </div>
         <Callout emoji="👑" tone="sun">
-          You own <b>{space.name}</b>. Its data lives in your cubby. People you invite can use it through {app.name}, and if you remove them, their access goes too.
+          You own <b>{space.name}</b>. Its data lives in your account. People you invite can use it through {app.name}, and if you remove them, their access goes too.
         </Callout>
       </div>
     </Modal>

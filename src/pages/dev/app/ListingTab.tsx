@@ -95,13 +95,13 @@ export function ListingTab({ appId }: { appId: string }) {
           <Input value={f.tags} onChange={(e) => set('tags', e.target.value)} placeholder="family, lists, shopping" />
         </div>
         <div>
-          <Label hint="Real screenshots come from your app’s cubby.json. This picks the placeholder style.">Screenshot style</Label>
+          <Label hint="Real screenshots come from your app’s diminutive.json. This picks the placeholder style.">Screenshot style</Label>
           <Segmented value={f.mock} onChange={(v) => set('mock', v)} options={MOCKS} className="flex-wrap" />
         </div>
         <div className="flex items-center justify-between gap-4 rounded-xl border-2 border-ink/15 p-3">
           <div>
             <div className="font-bold">💛 Tip jar</div>
-            <div className="text-sm text-ink/60">Shows a “Tip the maker” button. Cubby takes 0%, card fees only.</div>
+            <div className="text-sm text-ink/60">Shows a “Tip the maker” button. Diminutive takes 0%, card fees only.</div>
           </div>
           <Toggle checked={f.tipJar} onChange={(v) => set('tipJar', v)} label="Tip jar" />
         </div>

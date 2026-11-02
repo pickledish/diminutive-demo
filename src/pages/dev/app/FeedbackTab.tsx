@@ -138,7 +138,7 @@ export function FeedbackTab({ appId }: { appId: string }) {
         <Card className="bg-bubblegum/30 p-5">
           <div className="font-display text-lg font-extrabold">💛 Tips</div>
           <div className="font-display text-4xl font-extrabold">{money(dev.tipsCents)}</div>
-          <div className="text-sm text-ink/65">{app.tipJar ? 'All-time, paid out monthly. Cubby takes 0%.' : 'Your tip jar is off. Turn it on in Store listing.'}</div>
+          <div className="text-sm text-ink/65">{app.tipJar ? 'All-time, paid out monthly. Diminutive takes 0%.' : 'Your tip jar is off. Turn it on in Store listing.'}</div>
         </Card>
       </div>
     </div>

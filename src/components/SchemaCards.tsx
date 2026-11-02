@@ -20,7 +20,7 @@ export function SchemaCards({ schema, color = 'sun', highlight = [], stacked }: 
                   {c.name}
                 </span>
                 <span className="text-ink/45">
-                  {c.type === 'user' ? 'cubby_user' : c.type}
+                  {c.type === 'user' ? 'diminutive_user' : c.type}
                   {c.ref && ` → ${c.ref}`}
                   {c.nullable ? '?' : ''}
                 </span>

@@ -37,7 +37,7 @@ export function BackupRow({ backup, scopeAppId }: { backup: Backup; scopeAppId?:
         Object.fromEntries((installs[id]?.spaceIds ?? []).map((sid) => [spaces[sid]?.name ?? sid, backup.snapshot?.[sid] ?? spaces[sid]?.tables])),
       ]),
     )
-    downloadFile(`cubby-backup-${backup.createdAt.slice(0, 10)}${target ? `-${target.id}` : ''}.json`, JSON.stringify({ backup: { id: backup.id, createdAt: backup.createdAt, kind: backup.kind }, data }, null, 2))
+    downloadFile(`diminutive-backup-${backup.createdAt.slice(0, 10)}${target ? `-${target.id}` : ''}.json`, JSON.stringify({ backup: { id: backup.id, createdAt: backup.createdAt, kind: backup.kind }, data }, null, 2))
     toast({ emoji: '📥', title: 'Backup downloaded', body: 'Plain JSON. Readable by humans, robots and spreadsheets.' })
   }
 

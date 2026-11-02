@@ -9,21 +9,21 @@ import { CodeBlock } from '@/components/ui/CodeBlock'
 import { PLANS } from '@/data/constants'
 import { cn } from '@/lib/utils'
 
-const SDK_SNIPPET = `import { cubby } from '@cubby/sdk'
+const SDK_SNIPPET = `import { diminutive } from '@diminutive/sdk'
 
-// Login? Done. Cubby handles it.
-const me = await cubby.auth.user()
+// Login? Done. Diminutive handles it.
+const me = await diminutive.auth.user()
 
-// Reads & writes go to the user's cubby,
+// Reads & writes go to the user's account,
 // scoped to whatever space they're in.
-await cubby.db.from('items').insert({ name: 'Oat milk', qty: 2 })
-const { data } = await cubby.db.from('items').select('*').eq('done', false)
+await diminutive.db.from('items').insert({ name: 'Oat milk', qty: 2 })
+const { data } = await diminutive.db.from('items').select('*').eq('done', false)
 
 // Sharing is built in.
-const space = await cubby.spaces.current()
-cubby.db.from('items').subscribe((change) => render(change))`
+const space = await diminutive.spaces.current()
+diminutive.db.from('items').subscribe((change) => render(change))`
 
-function CubbyShelf() {
+function DiminutiveShelf() {
   const apps = useDemo((s) => s.apps)
   const people = useDemo((s) => s.people)
   const shelf = ['grocery-goblin', 'habit-hatch', 'dragon-notes', 'splitsies', 'plant-pal', 'book-nook'].map((id) => apps[id]).filter(Boolean)
@@ -33,7 +33,7 @@ function CubbyShelf() {
         <div className="mb-3 flex items-center justify-between px-1">
           <div className="flex items-center gap-2">
             <Avatar person={people.usr_robin} size="sm" />
-            <span className="font-display text-lg font-extrabold">Robin’s cubby</span>
+            <span className="font-display text-lg font-extrabold">Robin’s apps</span>
           </div>
           <Badge tone="white">🔒 only Robin has the key</Badge>
         </div>
@@ -104,12 +104,12 @@ const FAQ = [
     'No. App makers ship code; they never get a database to look into. They can see that their app was installed (anonymous counts), and anything you choose to send them, like a review or bug report. That’s it.',
   ],
   [
-    'Can Cubby see my data?',
+    'Can Diminutive see my data?',
     'Honest answer: we store it, so technically our systems can reach it. It’s encrypted at rest, every access is logged, we never sell or mine it, and our staff can’t browse it without you asking for help. If you’d rather it not be here, export it and delete it. It’s gone.',
   ],
   [
     'What happens if a maker abandons their app?',
-    'It keeps working. The app is a static bundle we host, and your data sits in your cubby, not on their server, so there’s nothing for them to turn off. You can export your data at any time.',
+    'It keeps working. The app is a static bundle we host, and your data sits in your account, not on their server, so there’s nothing for them to turn off. You can export your data at any time.',
   ],
   [
     'How does sharing work?',
@@ -117,7 +117,7 @@ const FAQ = [
   ],
   [
     'What happens when an app updates?',
-    'Most updates just make the app better, and they install quietly. If an update needs to change the shape of your data, Cubby shows you what’s changing in plain words, backs everything up first, and rolls back automatically if anything goes wrong.',
+    'Most updates just make the app better, and they install quietly. If an update needs to change the shape of your data, Diminutive shows you what’s changing in plain words, backs everything up first, and rolls back automatically if anything goes wrong.',
   ],
   [
     'I’m a maker. What can I build?',
@@ -178,7 +178,7 @@ export function Landing() {
           </h1>
           <p className="mt-6 max-w-xl text-xl leading-relaxed text-ink/80">
             Install little apps made by friends, families and indie makers, from grocery lists to D&D notes. Everything you put in them lives in{' '}
-            <b className="text-ink">your cubby</b>, not the developer’s database.
+            <b className="text-ink">your account</b>, not the developer’s database.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <LinkButton to="/home" size="lg">
@@ -194,7 +194,7 @@ export function Landing() {
             <span>📦 Export everything, anytime</span>
           </div>
         </div>
-        <CubbyShelf />
+        <DiminutiveShelf />
       </section>
 
       <Marquee />
@@ -206,7 +206,7 @@ export function Landing() {
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {[
             ['1', 'bg-sky', '🔍', 'Find an app', `Browse ${appCount}+ apps people built for their own families, clubs and teams, and then shared with everyone.`],
-            ['2', 'bg-sun', '📦', 'Install it into your cubby', 'Each app gets its own little cubby hole. Anything it saves stays right there, with you.'],
+            ['2', 'bg-sun', '📦', 'Install it into your account', 'Each app gets its own little corner. Anything it saves stays right there, with you.'],
             ['3', 'bg-bubblegum', '👥', 'Share a space', 'Invite your household, your crew, your book club. You own the space; they’re your guests.'],
           ].map(([n, tone, emoji, title, body]) => (
             <div key={n} className="brut relative rounded-2xl bg-white p-6 pt-8">
@@ -228,7 +228,7 @@ export function Landing() {
             </Sticker>
             <h2 className="text-4xl font-extrabold sm:text-5xl">The app doesn’t get your data. You keep it.</h2>
             <p className="mt-4 text-lg text-ink/70">
-              On Cubby, makers ship the app and we look after the data, on your behalf. It’s more like installing an app on your computer than signing up for yet another website.
+              On Diminutive, makers ship the app and we look after the data, on your behalf. It’s more like installing an app on your computer than signing up for yet another website.
             </p>
           </div>
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
@@ -258,21 +258,21 @@ export function Landing() {
             </div>
             <div className="brut rounded-2xl bg-mint/60 p-6">
               <div className="mb-1 flex items-center gap-2">
-                <Badge tone="dark">The Cubby way</Badge>
+                <Badge tone="dark">The Diminutive way</Badge>
               </div>
-              <h3 className="text-2xl font-extrabold">Cubby apps</h3>
+              <h3 className="text-2xl font-extrabold">Diminutive apps</h3>
               <div className="my-5">
                 <Flow
                   tone="bg-sun"
                   steps={[
                     { emoji: '🙂', label: 'You' },
                     { emoji: '🧌', label: 'The app', sub: 'runs in your browser' },
-                    { emoji: '📦', label: 'Your cubby', sub: 'only you + your people' },
+                    { emoji: '📦', label: 'Your account', sub: 'only you + your people' },
                   ]}
                 />
               </div>
               <ul className="flex flex-col gap-2.5">
-                {['The app saves straight into your cubby', 'The developer ships code but never sees a single row', 'Back it up, export it, or delete it whenever you want', 'Apps can be “sealed”: no internet access at all'].map((t) => (
+                {['The app saves straight into your account', 'The developer ships code but never sees a single row', 'Back it up, export it, or delete it whenever you want', 'Apps can be “sealed”: no internet access at all'].map((t) => (
                   <li key={t} className="flex gap-2.5">
                     <Check size={20} strokeWidth={3} className="mt-0.5 shrink-0" />
                     {t}
@@ -329,7 +329,7 @@ export function Landing() {
             </Sticker>
             <h2 className="text-5xl leading-none font-extrabold sm:text-6xl">Ship the fun part.</h2>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-ink/80">
-              You (and your AI) write the app. Cubby handles the boring, scary bits. No servers, no database to babysit, and no user data to leak, because you never have it.
+              You (and your AI) write the app. Diminutive handles the boring, scary bits. No servers, no database to babysit, and no user data to leak, because you never have it.
             </p>
             <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
               {['Login & accounts', 'A database for every user', 'Sharing & permissions', 'Realtime sync', 'Hosting for your bundle', 'Migrations across every install'].map((t) => (
@@ -363,7 +363,7 @@ export function Landing() {
 
       {/* Pricing */}
       <section id="pricing" className="mx-auto max-w-7xl scroll-mt-20 px-4 py-20">
-        <h2 className="text-center text-4xl font-extrabold sm:text-5xl">Pricing that fits in a cubby</h2>
+        <h2 className="text-center text-4xl font-extrabold sm:text-5xl">Pricing that’s positively diminutive</h2>
         <p className="mx-auto mt-3 max-w-xl text-center text-lg text-ink/70">Most people never pay a cent. Plus is there if you store lots of photos or want hourly backups.</p>
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 md:grid-cols-3">
           {[
@@ -427,11 +427,11 @@ export function Landing() {
       <section className="border-t-[3px] border-ink bg-sun">
         <div className="mx-auto flex max-w-7xl flex-col items-center px-4 py-16 text-center">
           <div className="text-6xl">📦</div>
-          <h2 className="mt-4 text-4xl font-extrabold sm:text-5xl">Come look inside the cubby.</h2>
+          <h2 className="mt-4 text-4xl font-extrabold sm:text-5xl">Come take a look inside.</h2>
           <p className="mt-3 max-w-lg text-lg">It’s a demo, so poke everything. Install apps, break things, restore backups, ship releases. Nothing bites.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <LinkButton to="/home" size="lg" variant="dark">
-              🏠 Open My Cubby
+              🏠 Open My Apps
             </LinkButton>
             <LinkButton to="/workshop" size="lg" variant="white">
               🛠️ Open the Workshop
@@ -445,9 +445,9 @@ export function Landing() {
           <span className="rounded-lg bg-paper p-1">
             <Logo size={24} withText={false} />
           </span>
-          <span className="font-display text-lg font-extrabold text-paper">cubby</span>
+          <span className="font-display text-lg font-extrabold text-paper">diminutive</span>
           <span>Tiny apps for your people · a demo, made with 💛</span>
-          <span className="ml-auto">© {new Date().getFullYear()} Cubby (not a real company… yet)</span>
+          <span className="ml-auto">© {new Date().getFullYear()} Diminutive (not a real company… yet)</span>
         </div>
       </footer>
     </div>

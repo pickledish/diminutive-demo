@@ -144,31 +144,41 @@ html[data-mode='workshop'] ::selection {
 }
 
 /* Mode switch: screens stay edge to edge, easeInCubic into a hard stop.
-   Direction follows the destination, already on <html> when the new snapshot
-   is taken. */
+   Armed only while html[data-vt-slide] is set, which happens solely for a
+   My Apps ↔ Workshop navigation. Every other view transition, including
+   back/forward that stays in one mode, is cut to zero. Direction follows the
+   destination, already on <html> when the new snapshot is taken. */
 @keyframes vt-out-left { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 @keyframes vt-in-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
 @keyframes vt-out-right { from { transform: translateX(0); } to { transform: translateX(100%); } }
 @keyframes vt-in-left { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 
+::view-transition-group(root) {
+  animation-duration: 0s;
+}
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 400ms;
-  animation-timing-function: cubic-bezier(0.25, 0, 0.75, 0);
-  animation-fill-mode: both;
+  animation-name: none;
   mix-blend-mode: normal;
 }
 
-html[data-mode='workshop']::view-transition-old(root) { animation-name: vt-out-left; }
-html[data-mode='workshop']::view-transition-new(root) { animation-name: vt-in-right; z-index: 1; }
-html[data-mode='my']::view-transition-old(root) { animation-name: vt-out-right; }
-html[data-mode='my']::view-transition-new(root) { animation-name: vt-in-left; z-index: 1; }
+html[data-vt-slide]::view-transition-group(root),
+html[data-vt-slide]::view-transition-old(root),
+html[data-vt-slide]::view-transition-new(root) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.25, 0, 0.75, 0);
+  animation-fill-mode: both;
+}
+html[data-vt-slide='workshop']::view-transition-old(root) { animation-name: vt-out-left; }
+html[data-vt-slide='workshop']::view-transition-new(root) { animation-name: vt-in-right; z-index: 1; }
+html[data-vt-slide='my']::view-transition-old(root) { animation-name: vt-out-right; }
+html[data-vt-slide='my']::view-transition-new(root) { animation-name: vt-in-left; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-mode='workshop']::view-transition-old(root),
-  html[data-mode='workshop']::view-transition-new(root),
-  html[data-mode='my']::view-transition-old(root),
-  html[data-mode='my']::view-transition-new(root) {
-    animation: none;
+  html[data-vt-slide]::view-transition-group(root),
+  html[data-vt-slide]::view-transition-old(root),
+  html[data-vt-slide]::view-transition-new(root) {
+    animation-duration: 0s;
+    animation-name: none;
   }
 }

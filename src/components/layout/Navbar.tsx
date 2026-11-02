@@ -15,7 +15,7 @@ import { toast } from '../ui/toast'
 function ModeJump({ to, dir }: { to: string; dir: 'left' | 'right' }) {
   const navigate = useNavigate()
   const toWorkshop = dir === 'right'
-  const label = toWorkshop ? 'Switch to Workshop' : 'Switch to My Cubby'
+  const label = toWorkshop ? 'Switch to Workshop' : 'Switch to My Apps'
   return (
     <Link
       to={to}
@@ -29,7 +29,7 @@ function ModeJump({ to, dir }: { to: string; dir: 'left' | 'right' }) {
     >
       {!toWorkshop && <ArrowLeft size={16} strokeWidth={3} className="transition-transform group-hover:-translate-x-0.5" />}
       <span>{toWorkshop ? '🛠️' : '🏠'}</span>
-      <span className="hidden sm:inline">{toWorkshop ? 'Workshop' : 'My Cubby'}</span>
+      <span className="hidden sm:inline">{toWorkshop ? 'Workshop' : 'My Apps'}</span>
       {toWorkshop && <ArrowRight size={16} strokeWidth={3} className="transition-transform group-hover:translate-x-0.5" />}
     </Link>
   )
@@ -243,7 +243,7 @@ function ProfileMenu() {
             Data & backups
           </MenuItem>
           <MenuItem emoji="📣" onClick={() => (close(), go('/'))}>
-            About Cubby (landing page)
+            About Diminutive (landing page)
           </MenuItem>
           <MenuDivider />
           <MenuItem emoji="🧹" onClick={() => (close(), reset())}>

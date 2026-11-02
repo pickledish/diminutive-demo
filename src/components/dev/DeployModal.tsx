@@ -9,7 +9,7 @@ import { celebrate } from '@/lib/fx'
 import { Modal } from '../ui/Modal'
 import { Badge, Button, Callout, Input, Label, Segmented, Textarea } from '../ui/primitives'
 
-const FAKE_FILES = ['index.html', 'assets/index-8f2a1c.js', 'assets/index-3be0.css', 'assets/goblin.svg', 'manifest.webmanifest', 'cubby.json']
+const FAKE_FILES = ['index.html', 'assets/index-8f2a1c.js', 'assets/index-3be0.css', 'assets/goblin.svg', 'manifest.webmanifest', 'diminutive.json']
 
 export function DeployModal({ appId, open, onClose, preselect }: { appId: string; open: boolean; onClose: () => void; preselect?: string[] }) {
   const navigate = useNavigate()
@@ -110,7 +110,7 @@ export function DeployModal({ appId, open, onClose, preselect }: { appId: string
                 <UploadCloud size={32} strokeWidth={2.5} />
                 <div className="font-display text-lg font-extrabold">Drop your build folder here</div>
                 <div className="text-sm text-ink/60">
-                  or click to pick one. (Or skip this and run <code className="font-mono">npx cubby deploy</code>.)
+                  or click to pick one. (Or skip this and run <code className="font-mono">npx diminutive deploy</code>.)
                 </div>
               </>
             )}
@@ -225,7 +225,7 @@ export function DeployModal({ appId, open, onClose, preselect }: { appId: string
                       }}
                       className="font-bold underline"
                     >
-                      Hop over to My Cubby
+                      Hop over to My Apps
                     </Link>{' '}
                     to see it arrive {chosen.length ? '(and approve it)' : ''}.
                   </li>

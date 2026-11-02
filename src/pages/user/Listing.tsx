@@ -213,7 +213,7 @@ export function Listing() {
                 variant="white"
                 size="sm"
                 onClick={() => {
-                  copyText(`https://cubby.app/apps/${app.id}`)
+                  copyText(`https://diminutive.app/apps/${app.id}`)
                   toast({ emoji: '🔗', title: 'Link copied', body: 'Send it to your people.' })
                 }}
               >
@@ -266,7 +266,7 @@ export function Listing() {
           </Card>
 
           <Card>
-            <CardHeader title="What it keeps in your cubby" emoji="🗄️" subtitle="The exact shape of the data this app stores. You can browse every row once it’s installed." />
+            <CardHeader title="What it keeps in your account" emoji="🗄️" subtitle="The exact shape of the data this app stores. You can browse every row once it’s installed." />
             <div className="p-5">
               <SchemaPreview app={app} />
             </div>

@@ -101,7 +101,7 @@ export function ReleasesTab({ appId, onDeploy }: { appId: string; onDeploy: () =
               </Button>
             </>
           ) : (
-            <div className="text-sm text-ink/60">Every PR and every <code className="font-mono">cubby deploy --preview</code> gets a private link, tested against fake data.</div>
+            <div className="text-sm text-ink/60">Every PR and every <code className="font-mono">diminutive deploy --preview</code> gets a private link, tested against fake data.</div>
           )}
         </Card>
       </div>
@@ -161,7 +161,7 @@ export function ReleasesTab({ appId, onDeploy }: { appId: string; onDeploy: () =
                           size="xs"
                           variant="white"
                           title="Open preview link"
-                          onClick={() => toast({ emoji: '👁', title: `Preview of v${r.version}`, body: `Opens v${r.version.replace(/\./g, '-')}--${appId}.cubby.app with a sandbox cubby full of fake data.` })}
+                          onClick={() => toast({ emoji: '👁', title: `Preview of v${r.version}`, body: `Opens v${r.version.replace(/\./g, '-')}--${appId}.diminutive.app with a sandbox account full of fake data.` })}
                         >
                           👁
                         </Button>

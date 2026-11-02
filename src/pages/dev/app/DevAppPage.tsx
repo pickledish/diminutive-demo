@@ -60,7 +60,7 @@ export function DevAppPage() {
           <div className="mt-2 flex flex-wrap items-center gap-2 text-sm font-bold text-ink/60">
             <StatusBadge status={dev.status} />
             {live ? <Badge tone="white">v{live.version} live</Badge> : <Badge tone="muted">no live release</Badge>}
-            <span className="font-mono text-xs">{appId}.cubby.app</span>
+            <span className="font-mono text-xs">{appId}.diminutive.app</span>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">

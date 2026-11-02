@@ -7,7 +7,7 @@ import { myRole, spaceRowCount } from '@/store/selectors'
 import { cn, compareVersions, downloadFile, formatDate, formatDateTime, timeAgo, toCsv } from '@/lib/utils'
 import { bgSoft } from '@/lib/colors'
 import { PersonChip } from '@/components/ui/identity'
-import { Badge, Callout, Card, EmptyState, Input, Segmented } from '@/components/ui/primitives'
+import { Badge, TabIntro, Card, EmptyState, Input, Segmented } from '@/components/ui/primitives'
 import { ConfirmModal } from '@/components/flows/ConfirmModal'
 import { toast } from '@/components/ui/toast'
 
@@ -97,9 +97,9 @@ export function DataTab({ appId }: { appId: string }) {
 
   return (
     <div className="flex flex-col gap-5">
-      <Callout emoji="🔍" tone="mint">
-        <b>This is your actual data</b>, exactly as {app.name} stored it. {dev?.name} has never seen it, and can’t. {space.members.length > 1 && <>Everyone in “{space.name}” can see these rows too.</>}
-      </Callout>
+      <TabIntro>
+        Exactly what {app.name} has stored{space.members.length > 1 && <>, visible to everyone in “{space.name}”</>}. {dev?.name} has never seen it, and can’t.
+      </TabIntro>
 
       {mine.length > 1 && (
         <div className="flex flex-wrap items-center gap-2">
@@ -254,7 +254,7 @@ export function DataTab({ appId }: { appId: string }) {
                 </tbody>
               </table>
               <p className="mt-4 text-xs text-ink/55">
-                “person” columns hold Cubby user IDs. The app sees a name and avatar; never an email.
+                “person” columns hold Diminutive user IDs. The app sees a name and avatar; never an email.
               </p>
             </div>
           )}

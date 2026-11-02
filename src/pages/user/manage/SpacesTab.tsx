@@ -11,7 +11,7 @@ import { ConfirmModal } from '@/components/flows/ConfirmModal'
 import { EmojiPicker } from '@/components/flows/EmojiPicker'
 import { Modal } from '@/components/ui/Modal'
 import { Avatar } from '@/components/ui/identity'
-import { Badge, Button, Callout, Card, Input, Label, Select } from '@/components/ui/primitives'
+import { Badge, Button, TabIntro, Card, Input, Label, Select } from '@/components/ui/primitives'
 import { toast } from '@/components/ui/toast'
 
 export function SpaceFormModal({ open, onClose, onSave, initial, title }: { open: boolean; onClose: () => void; onSave: (name: string, emoji: string) => void; initial?: { name: string; emoji: string }; title: string }) {
@@ -76,7 +76,7 @@ function SpaceCard({ space }: { space: Space }) {
             {role && <RoleBadge role={role} />}
           </div>
           <div className="text-xs font-bold text-ink/55">
-            {spaceRowCount(space)} rows · {formatKb(spaceKb(space))} · created {timeAgo(space.createdAt)} · {owner ? 'lives in your cubby' : `lives in ${people[space.ownerId]?.name.split(' ')[0]}’s cubby`}
+            {spaceRowCount(space)} rows · {formatKb(spaceKb(space))} · created {timeAgo(space.createdAt)} · {owner ? 'lives in your account' : `lives in ${people[space.ownerId]?.name.split(' ')[0]}’s account`}
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -223,13 +223,13 @@ function SpaceCard({ space }: { space: Space }) {
         onConfirm={() => {
           if (confirm && typeof confirm === 'object') {
             transfer(space.id, confirm.transfer)
-            toast({ emoji: '👑', title: 'Ownership handed over', body: `“${space.name}” now lives in ${people[confirm.transfer]?.name.split(' ')[0]}’s cubby. You’re an editor.` })
+            toast({ emoji: '👑', title: 'Ownership handed over', body: `“${space.name}” now lives in ${people[confirm.transfer]?.name.split(' ')[0]}’s account. You’re an editor.` })
           }
         }}
       >
         {confirm && typeof confirm === 'object' && (
           <p>
-            <b>{people[confirm.transfer]?.name}</b> will own “{space.name}”: its data moves to their cubby, they control members and backups, and it counts toward their storage. You’ll stay on as an editor.
+            <b>{people[confirm.transfer]?.name}</b> will own “{space.name}”: its data moves to their account, they control members and backups, and it counts toward their storage. You’ll stay on as an editor.
           </p>
         )}
       </ConfirmModal>
@@ -246,14 +246,15 @@ export function SpacesTab({ appId }: { appId: string }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center gap-4">
-        <Callout emoji="🙂" tone="white" className="flex-1">
-          <b>You start with one space, just for you.</b> Make another to share with friends, a household, or a team. Whoever creates a space owns its data: who’s in, who can edit, and when it’s backed up or deleted.
-        </Callout>
-        <Button onClick={() => setCreating(true)}>
-          <Plus size={16} strokeWidth={3} /> New space
-        </Button>
-      </div>
+      <TabIntro
+        action={
+          <Button onClick={() => setCreating(true)}>
+            <Plus size={16} strokeWidth={3} /> New space
+          </Button>
+        }
+      >
+        Make a space to share with friends, a household, or a team. Whoever creates it owns its data.
+      </TabIntro>
       {mine.map((sp) => (
         <SpaceCard key={sp.id} space={sp} />
       ))}

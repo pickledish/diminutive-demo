@@ -254,6 +254,16 @@ export function Callout({ emoji = '💡', tone = 'accent', children, className, 
   )
 }
 
+/** The one-line explainer at the top of a tab. Plain text on the page background, with an optional control on the right. */
+export function TabIntro({ children, action }: { children: ReactNode; action?: ReactNode }) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <p className="min-w-0 text-[15px] text-ink/65">{children}</p>
+      {action}
+    </div>
+  )
+}
+
 export function Kbd({ children }: { children: ReactNode }) {
   return <kbd className="rounded-md border-2 border-ink bg-white px-1.5 py-0.5 font-mono text-xs font-bold shadow-brut-xs">{children}</kbd>
 }

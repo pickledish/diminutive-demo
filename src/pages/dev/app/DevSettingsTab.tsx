@@ -66,7 +66,7 @@ export function DevSettingsTab({ appId }: { appId: string }) {
           <CopyField label="App ID" value={appId} />
           <CopyField label="Publishable key" value={dev.publishableKey} />
           <Callout emoji="🤷" tone="white">
-            <b>There’s no secret key.</b> There’s no backend to protect. This key can only ever reach the cubby of whoever is logged in, so it’s fine to put in your frontend code.
+            <b>There’s no secret key.</b> There’s no backend to protect. This key can only ever reach the data of whoever is logged in, so it’s fine to put in your frontend code.
           </Callout>
         </Section>
 
@@ -97,7 +97,7 @@ export function DevSettingsTab({ appId }: { appId: string }) {
             <div className="flex items-center gap-3 rounded-xl border-2 border-ink bg-mint/40 p-3">
               <span className="text-2xl">🔒</span>
               <div className="text-sm">
-                <b>Sealed apps get a badge</b> in Explore. People love it: it means their data physically can’t leave Cubby.
+                <b>Sealed apps get a badge</b> in Explore. People love it: it means their data physically can’t leave Diminutive.
               </div>
             </div>
           )}
@@ -116,7 +116,7 @@ export function DevSettingsTab({ appId }: { appId: string }) {
           <p className="text-xs text-ink/55">Adding a site asks every install to approve it, and you lose the 🔒 Sealed badge. Only add what you truly need.</p>
         </Section>
 
-        <Section title="Abilities you ask for" emoji="🎟️" subtitle="Set in cubby.json. Users see these before installing.">
+        <Section title="Abilities you ask for" emoji="🎟️" subtitle="Set in diminutive.json. Users see these before installing.">
           <div className="flex flex-wrap gap-2">
             {app.permissions.map((p) => (
               <Badge key={p} tone="white" className="py-1 text-sm">
