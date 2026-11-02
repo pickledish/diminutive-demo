@@ -135,7 +135,7 @@ export function Landing() {
       <DemoBanner />
       <header className="sticky top-0 z-40 border-b-[3px] border-ink bg-cream/95">
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4">
-          <Link to="/">
+          <Link to="/" className="flex items-center">
             <Logo />
           </Link>
           <nav className="hidden items-center gap-5 text-sm font-bold text-ink/70 md:flex">

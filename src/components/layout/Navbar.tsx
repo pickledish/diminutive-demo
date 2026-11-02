@@ -288,7 +288,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b-[3px] border-ink bg-surface/95">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4">
         {workshop && <ModeJump to="/home" dir="left" />}
-        <Link to={workshop ? '/workshop' : '/home'} className="shrink-0">
+        <Link to={workshop ? '/workshop' : '/home'} className="flex shrink-0 items-center">
           <Logo withText={false} size={36} className="sm:hidden" />
           <Logo className="hidden sm:inline-flex" />
         </Link>
