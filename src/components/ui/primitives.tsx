@@ -264,6 +264,25 @@ export function TabIntro({ children, action }: { children: ReactNode; action?: R
   )
 }
 
+/** Comic-style speech bubble for out-of-character demo commentary. Tail sits bottom-right. */
+export function EditorsNote({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={cn('relative mb-3 self-start', className)}>
+      <p className="rounded-xl rounded-br-none border-2 border-ink bg-sun px-3.5 py-1.5 text-sm shadow-brut-sm">
+        <b className="font-extrabold">Note from Brandon:</b> {children}
+      </p>
+      {/* Tail: the bubble's right edge continues straight down; the diagonal runs from the bottom edge to meet it.
+          Path coords: y=0..2 overlaps the 2px bottom border, x=14..16 overlaps the right border. Shadow copy offset 3px to match shadow-brut-sm. */}
+      <svg aria-hidden width="16" height="14" viewBox="0 0 16 14" overflow="visible" className="absolute top-[calc(100%-2px)] right-0">
+        <path d="M3 4 L18 16 L18 3 Z" fill="var(--color-ink)" stroke="var(--color-ink)" strokeWidth="2" strokeLinejoin="round" />
+        {/* Fill is flat-topped so it fully erases the bubble's bottom border under the tail's base; outline is drawn separately (no top edge). */}
+        <path d="M1 -0.5 L14 -0.5 L14 12 L0 1 Z" fill="var(--color-sun)" />
+        <path d="M0 1 L15 13 L15 0" fill="none" stroke="var(--color-ink)" strokeWidth="2" strokeLinejoin="round" />
+      </svg>
+    </div>
+  )
+}
+
 export function Kbd({ children }: { children: ReactNode }) {
   return <kbd className="rounded-md border-2 border-ink bg-white px-1.5 py-0.5 font-mono text-xs font-bold shadow-brut-xs">{children}</kbd>
 }

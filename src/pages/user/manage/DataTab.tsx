@@ -7,7 +7,7 @@ import { myRole, spaceRowCount } from '@/store/selectors'
 import { cn, compareVersions, downloadFile, formatDate, formatDateTime, timeAgo, toCsv } from '@/lib/utils'
 import { bgSoft } from '@/lib/colors'
 import { PersonChip } from '@/components/ui/identity'
-import { Badge, TabIntro, Card, EmptyState, Input, Segmented } from '@/components/ui/primitives'
+import { Badge, EditorsNote, Card, EmptyState, Input, Segmented } from '@/components/ui/primitives'
 import { ConfirmModal } from '@/components/flows/ConfirmModal'
 import { toast } from '@/components/ui/toast'
 
@@ -51,7 +51,6 @@ export function DataTab({ appId }: { appId: string }) {
   const inst = useDemo((s) => s.installs[appId])
   const spaces = useDemo((s) => s.spaces)
   const meId = useDemo((s) => s.meId)
-  const dev = useDemo((s) => s.developers[app.developerId])
   const deleteRow = useDemo((s) => s.deleteRow)
   const logActivity = useDemo((s) => s.logActivity)
   const markTour = useDemo((s) => s.markTour)
@@ -97,9 +96,7 @@ export function DataTab({ appId }: { appId: string }) {
 
   return (
     <div className="flex flex-col gap-5">
-      <TabIntro>
-        Exactly what {app.name} has stored{space.members.length > 1 && <>, visible to everyone in “{space.name}”</>}. {dev?.name} has never seen it, and can’t.
-      </TabIntro>
+      <EditorsNote>Not sure if there’s value in showing the raw data to users, but showing it here helps convey the concept at least.</EditorsNote>
 
       {mine.length > 1 && (
         <div className="flex flex-wrap items-center gap-2">
